@@ -1,4 +1,28 @@
 const express = require("express");
 const app = express();
+const cors = require('cors');
 
-app.use()
+require("dotenv").config();
+
+const PORT = process.env.PORT
+
+// middleware 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+// db connection
+const dbConnect = require('./config/database')
+dbConnect();
+
+//Routes
+const routes = require()
+
+app.get('/', (req, res)=>{
+    res.send("API Working");
+})
+
+app.listen(PORT, ()=>{
+    console.log(`server started successfully at ${PORT}`)
+})
+
