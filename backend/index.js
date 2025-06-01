@@ -16,8 +16,10 @@ const dbConnect = require('./config/database')
 dbConnect();
 
 // Mounting Routes
-const routes = require("./routes/userRoutes");
-app.use('/api/user', routes)
+const userRoutes = require("./routes/userRoutes");
+const taskRouter = require("./routes/taskRoutes");
+app.use('/api/user', userRoutes)
+app.use('/api/tasks', taskRouter)
 
 app.get('/', (req, res)=>{
     res.send("API Working");

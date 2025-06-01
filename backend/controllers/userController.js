@@ -1,4 +1,4 @@
-const user = require("../models/userModel");
+const User = require("../models/userModel");
 const validator = require("validator");
 // const bcrypt = require('bcrypt')
 const bcrypt = require('bcryptjs')
@@ -48,7 +48,7 @@ exports.signUp = async(req, res)=>{
             })
         }
         // checking for existing user or not
-        const existingUser = await user.findOne({email})
+        const existingUser = await User.findOne({email})
 
         if(existingUser){
             return res.status(400).json({
@@ -60,7 +60,7 @@ exports.signUp = async(req, res)=>{
         // hashing password
         const hashedPassword = await bcrypt.hash(password,10);
         // creating user
-        const newUser = await user.create({name, email, password: hashedPassword});
+        const newUser = await User.create({name, email, password: hashedPassword});
 
         // create token
         const token = createToken(newUser._id)
@@ -142,10 +142,10 @@ exports.login = async (req, res) => {
 // GET CURRENT USER
 exports.getCurrentUser = async (req, res) => {
     try {
-        const id = req.body;
+        const userId = req.user.id;
 
         // finding user by id and extracting "name" and "email"
-        const user = await user.findById({id}).select("name email");
+        const user = await User.findById(userId).select("name email");
 
         // when user not found
         if(!user){
@@ -182,7 +182,7 @@ exports.updateProfile = async (req, res) => {
             })
         }
 
-        const emailExist = await user.findOne({email, id:{$ne: req.user.id}});
+        const emailExist = await User.findOne({email, id:{$ne: req.user.id}});
 
         // if email already in use by another account
         if(emailExist){
@@ -225,7 +225,7 @@ exports.updatePassword = async (req, res) => {
             })
         }
 
-        const user = await user.findById(req.user.id).select('password');
+        const user = await User.findById(req.user.id).select('password');
 
         // if user not found
         if(!user){
