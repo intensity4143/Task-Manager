@@ -4,7 +4,7 @@ const validator = require("validator");
 const bcrypt = require('bcryptjs')
 const jwt = require("jsonwebtoken");
 
-const JWT_SECRET = process.env.JWT_TOKEN
+const JWT_SECRET = process.env.JWT_SECRET
 const TOKEN_EXPIRES = '24h'
 
 // function to create token
@@ -20,7 +20,9 @@ const createToken = (userId) => {
 exports.signUp = async(req, res)=>{
     try {
         //exctract data
+        console.log("req body :-" , req.body);
         const {name, email, password} = req.body;
+        console.log(name, email, password);
 
         // check if anyone is empty
         if(!name || !email || !password){
@@ -138,7 +140,7 @@ exports.login = async (req, res) => {
 }
 
 // GET CURRENT USER
-exports.currentUser = async (req, res) => {
+exports.getCurrentUser = async (req, res) => {
     try {
         const id = req.body;
 

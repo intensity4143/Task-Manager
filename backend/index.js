@@ -4,7 +4,7 @@ const cors = require('cors');
 
 require("dotenv").config();
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 4000;
 
 // middleware 
 app.use(cors());
@@ -15,8 +15,9 @@ app.use(express.urlencoded({extended:true}));
 const dbConnect = require('./config/database')
 dbConnect();
 
-//Routes
-const routes = require()
+// Mounting Routes
+const routes = require("./routes/userRoutes");
+app.use('/api/user', routes)
 
 app.get('/', (req, res)=>{
     res.send("API Working");
