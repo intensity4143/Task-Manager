@@ -1,29 +1,34 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
-import axios from 'axios';
+import axios from "axios";
+import { toast } from "react-toastify";
 
+function Login(props) {
+  const navigate = useNavigate();
 
-
-function Login() {
-    const navigate = useNavigate();
-
-   const handleLogin = async (data) => {
-        try {
-            const response = await axios.post("http://localhost:3000/api/user/login",data);
-            alert("Login successfull !");
-            console.log("user data:- ", response.data)
-            navigate("/Home")
-        } catch (error) {
-            alert("Error while Login !")
-            console.log(error.response.data || error.message)
-        }
-   }
+  const handleLogin = async (data) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/user/login",
+        data
+      ); // send user login credentials to server
+      toast.success("Login successfull !"); // pop up
+      localStorage.setItem("token", response.data.token); // set token in local storage for authorization
+      localStorage.setItem("name", response.data.user.name); // set name in local 
+      localStorage.setItem("email", response.data.user.email); // set email in local storage 
+      console.log("user data:- ", response.data);
+      navigate("/layout"); // navigate to Home or Dashboard
+    } catch (error) {
+      toast.error("Error while Login !");
+      console.log(error.response.data || error.message);
+    }
+  };
 
   const {
     register,
     handleSubmit,
-    formState: { errors , isSubmitting},
+    formState: { errors, isSubmitting },
   } = useForm();
 
   return (
@@ -32,10 +37,7 @@ function Login() {
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
           Login
         </h1>
-        <form
-          onSubmit={handleSubmit(handleLogin)}
-          className="space-y-5"
-        >
+        <form onSubmit={handleSubmit(handleLogin)} className="space-y-5">
           {/* Email Field */}
           <div>
             <label className="block mb-1 font-semibold text-gray-700">
@@ -88,7 +90,7 @@ function Login() {
           <input
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 cursor-pointer"
-            value={isSubmitting? "Submitting": "Logging"}
+            value={isSubmitting ? "Logging In" : "Log In"}
           />
 
           <h1 className="text-center text-lg text-gray-600 mt-1">

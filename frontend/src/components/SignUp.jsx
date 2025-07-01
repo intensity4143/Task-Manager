@@ -1,10 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { NavLink, useNavigate } from "react-router";
-import axios from 'axios';
+import { NavLink, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const SignUp = () => {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -12,18 +13,23 @@ const navigate = useNavigate();
     formState: { errors, isSubmitting },
   } = useForm();
 
-    const handleSignUp = async (data) => {
-
-        try {
-            const response = await axios.post("http://localhost:3000/api/user/signUp",data);
-            alert("signUp successfull !");
-            console.log("user data:- ", response.data)
-            navigate('/Home')
-        } catch (error) {
-            alert("Error while creating account !")
-            console.log(error.response.data || error.message)
-        }
-   }
+  const handleSignUp = async (data) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/user/signUp",
+        data
+      ); // register user
+      toast.success("signUp successfull !"); // pop up displaying user signed in successfully
+      localStorage.setItem("token", response.data.token); // set token to local storage as authentication
+      localStorage.setItem("name", response.data.user.name); // set name in local
+      localStorage.setItem("email", response.data.user.email); // set email in local storage
+      console.log("user data:- ", response.data);
+      navigate("/layout");
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error.response.data || error.message);
+    }
+  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-sm">
@@ -33,6 +39,7 @@ const navigate = useNavigate();
         <form
           onSubmit={handleSubmit(handleSignUp)}
           className="space-y-3"
+          noValidate
         >
           {/* Name */}
           <div>
@@ -45,13 +52,11 @@ const navigate = useNavigate();
                 required: "Name is required",
               })}
               className={`w-full px-4 py-2 rounded-lg border ${
-                errors.Name ? "border-red-500" : "border-gray-300"
+                errors.name ? "border-red-500" : "border-gray-300"
               } focus:outline-none focus:ring-2 focus:ring-blue-500`}
             />
-            {errors.Name && (
-              <p className="text-red-500 text-sm mt-1">
-                {errors.Name.message}
-              </p>
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
             )}
           </div>
           {/* Email Field */}
@@ -106,9 +111,10 @@ const navigate = useNavigate();
           <input
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 cursor-pointer"
-            value={isSubmitting? "Submitting": "Sign Up"}
+            value={isSubmitting ? "Submitting" : "Sign Up"}
+            disabled={isSubmitting}
           />
-            {/* Sign Up */}
+          {/* Sign Up */}
           {/* </input> */}
           <h1 className="text-center text-lg text-gray-600 mt-1">
             Already have an account?{" "}
