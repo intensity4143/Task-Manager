@@ -119,7 +119,7 @@ const SignUp = () => {
           <h1 className="text-center text-lg text-gray-600 mt-1">
             Already have an account?{" "}
             <NavLink
-              to="/"
+              to="/login"
               className={({ isActive }) =>
                 `font-semibold underline transition-colors duration-200 ${
                   isActive

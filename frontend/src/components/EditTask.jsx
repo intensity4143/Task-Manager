@@ -1,17 +1,28 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { taskContext } from "../App";
 
-const AddTask = ({setOpen}) => {
-
-   const{setTasks, setPendingTasks, setCompletedTasks} = useContext(taskContext);
+const EditTask = ({ setOpen, taskToEdit }) => {
+  const { setTasks, setPendingTasks, setCompletedTasks } =
+    useContext(taskContext);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("Low");
   const [dueDate, setDueDate] = useState("");
   const [completed, setCompleted] = useState(false);
+
+  // Prevent rendering if taskToEdit is not ready
+  if (!taskToEdit) return null;
+
+  useEffect(() => {
+    setTitle(taskToEdit.title || "");
+    setDescription(taskToEdit.description || "");
+    setPriority(taskToEdit.priority || "Low");
+    setDueDate(taskToEdit.dueDate?.split("T")[0] || "");
+    setCompleted(taskToEdit.completed ?? false);
+  }, [taskToEdit]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,14 +34,14 @@ const AddTask = ({setOpen}) => {
 
     const token = localStorage.getItem("token");
     if (!token) {
-      setError("token missing! Please log in.");
-      setLoading(false);
+      toast.error("Token missing! Please log in.");
       return;
     }
 
+    const taskId = taskToEdit._id
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:3000/api/tasks",
+      const response = await axios.put(
+        `http://127.0.0.1:3000/api/tasks/${taskId}`,
         {
           title,
           description,
@@ -45,30 +56,32 @@ const AddTask = ({setOpen}) => {
         }
       );
 
-      setOpen(false); // closing add Task box
+      const updatedTask = response.data.updateTask;
+      setOpen(false); // Close modal
 
-      const newTask = response.data.task;  // newly created task
+      // Replace in main task list
+      setTasks((prev) =>
+        prev.map((task) =>
+          task._id === updatedTask._id ? updatedTask : task
+        )
+      );
 
-      // adding new Task to all task 
-      setTasks((prevTasks) => [...prevTasks, newTask]); 
+      // Re-separate based on completion
+      setCompletedTasks((prev) => {
+        const filtered = prev.filter((task) => task._id !== updatedTask._id);
+        return updatedTask.completed ? [...filtered, updatedTask] : filtered;
+      });
 
-       // add new task to completed or pending
-      if(newTask.completed) setCompletedTasks((prevTasks) => [...prevTasks, newTask]) 
-      else setPendingTasks((prevTasks) => [...prevTasks, newTask])  
+      setPendingTasks((prev) => {
+        const filtered = prev.filter((task) => task._id !== updatedTask._id);
+        return !updatedTask.completed ? [...filtered, updatedTask] : filtered;
+      });
 
-      toast.success("Task Added Successfully!");
-      console.log(response.data);
+      toast.success("Task edited successfully!");
 
-      // reset values
-      setTitle("");
-      setDescription("");
-      setPriority("Low");
-      setDueDate("");
-      setCompleted(false);
-    } 
-    catch (error) {
-      toast.error("Failed to add task");
-      console.error(error.response?.message || error.message);
+    } catch (error) {
+      toast.error("Failed to edit task");
+      console.error(error.response?.data?.message || error.message);
     }
   };
 
@@ -79,7 +92,7 @@ const AddTask = ({setOpen}) => {
         <label className="text-sm font-medium text-gray-700 mb-1">Title</label>
         <input
           type="text"
-          value={title || ""}
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="px-3 py-2 border border-gray-300 rounded-md bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
         />
@@ -87,12 +100,10 @@ const AddTask = ({setOpen}) => {
 
       {/* Description */}
       <div className="flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">
-          Description
-        </label>
+        <label className="text-sm font-medium text-gray-700 mb-1">Description</label>
         <input
           type="text"
-          value={description || ""}
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
           className="px-3 py-2 border border-gray-300 rounded-md bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
         />
@@ -100,11 +111,9 @@ const AddTask = ({setOpen}) => {
 
       {/* Priority */}
       <div className="flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">
-          Priority
-        </label>
+        <label className="text-sm font-medium text-gray-700 mb-1">Priority</label>
         <select
-          value={priority || "Low"}
+          value={priority}
           onChange={(e) => setPriority(e.target.value)}
           className="px-3 py-2 border border-gray-300 rounded-md text-sm bg-white focus:outline-none focus:ring-2 focus:ring-green-500"
         >
@@ -116,12 +125,10 @@ const AddTask = ({setOpen}) => {
 
       {/* Due Date */}
       <div className="flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">
-          Due Date
-        </label>
+        <label className="text-sm font-medium text-gray-700 mb-1">Due Date</label>
         <input
           type="date"
-          value={dueDate || " "}
+          value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
           className="px-3 py-2 border border-gray-300 rounded-md text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-green-500"
         />
@@ -129,9 +136,7 @@ const AddTask = ({setOpen}) => {
 
       {/* Completed */}
       <div className="flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">
-          Completed
-        </label>
+        <label className="text-sm font-medium text-gray-700 mb-1">Completed</label>
         <div className="flex gap-4 text-sm">
           <label className="flex items-center gap-1">
             <input
@@ -157,10 +162,10 @@ const AddTask = ({setOpen}) => {
         type="submit"
         className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg text-sm transition duration-200"
       >
-        Add Task
+        Update Task
       </button>
     </form>
   );
 };
 
-export default AddTask;
+export default EditTask;

@@ -6,7 +6,7 @@ import {
   SunMoon,
   CircleUser,
   UserCog,
-  Plus,
+  Plus, 
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
@@ -64,11 +64,11 @@ const Navbar = () => {
   
 
   return (
-    <div className="text-white sticky top-0 w-[100%]">
-      <nav className="flex justify-around bg-blue-700 py-2">
+    <div className="text-white sticky top-0 w-[100%] z-30">
+      <nav className="flex justify-around bg-blue-700 py-2.5">
         <div>
           <NavLink to="/layout/allTasks">
-            <Slack className="text-white"/>
+            <Slack className="text-white inline-block"/> <span className="font-semibold">TaskManager</span>
           </NavLink>
         </div>
 

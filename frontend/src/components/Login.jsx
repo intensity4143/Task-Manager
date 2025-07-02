@@ -18,7 +18,7 @@ function Login(props) {
       localStorage.setItem("name", response.data.user.name); // set name in local 
       localStorage.setItem("email", response.data.user.email); // set email in local storage 
       console.log("user data:- ", response.data);
-      navigate("/layout"); // navigate to Home or Dashboard
+      navigate("/layout/allTasks"); // navigate to Home or Dashboard
     } catch (error) {
       toast.error("Error while Login !");
       console.log(error.response.data || error.message);
