@@ -15,9 +15,9 @@ const HomePage = () => {
 
 
   return (
-    <div className="bg-slate-100 p-4">
+    <div className="bg-gray-200 p-4">
       {/* Header with Add Task */}
-      <div className="flex justify-evenly items-center mb-6 py-1.5">
+      <div className="flex justify-evenly items-center mb-4 py-1.5">
         <h2 className="text-xl font-semibold text-gray-800">Task Overview</h2>
         <div>
           {/* Trigger Button , modal for add task to appear over layout acting as translucent using radix modal*/}
@@ -25,7 +25,7 @@ const HomePage = () => {
             <Dialog.Trigger asChild>
               <button className="bg-green-800 text-white text-sm px-4 py-1 rounded-xl flex items-center gap-2 hover:bg-green-700 transition cursor-pointer"
               onClick={() =>setOpen(true)}>
-                Add a New Task <Plus size={16} />
+                Add New Task <Plus size={16} />
               </button>
             </Dialog.Trigger>
 
@@ -53,26 +53,26 @@ const HomePage = () => {
       </div>
 
       {/* Task Stats */}
-      <div className="flex flex-wrap justify-center gap-4 mb-2 bg-slate-200 shadow-md shadow-slate-400 p-2">
-        <div className="bg-white p-4 rounded-md shadow-md text-center w-40">
+      <div className="flex flex-wrap justify-center gap-2 lg:gap-4 mb-2shadow-md shadow-slate-400 p-2">
+        <div className="bg-white p-2 rounded-md shadow-md text-center w-40">
           <h3 className="text-slate-600 text-sm">Total Task</h3>
           <p className="text-xl font-semibold text-slate-700">
             {loading ? "loading" : tasks.length}
           </p>
         </div>
-        <div className="bg-white p-4 rounded-md shadow-md text-center w-40">
+        <div className="bg-white p-2 rounded-md shadow-md text-center w-40">
           <h3 className="text-slate-600 text-sm">Completed Task</h3>
           <p className="text-xl font-semibold text-slate-700">
             {loading ? "loading" : completedTasks.length}
           </p>
         </div>
-        <div className="bg-white p-4 rounded-md shadow-md text-center w-40">
+        <div className="bg-white p-2 rounded-md shadow-md text-center w-40">
           <h3 className="text-slate-600 text-sm">Pending Task</h3>
           <p className="text-xl font-semibold text-slate-700">
             {loading ? "loading" : pendingTasks.length}
           </p>
         </div>
-        <div className="bg-white p-4 rounded-md shadow-md text-center w-40">
+        <div className="bg-white p-2 rounded-md shadow-md text-center w-40">
           <h3 className="text-slate-600 text-sm">Completion Rate</h3>
           <p className="text-xl font-semibold text-slate-700">
             {((completedTasks.length / tasks.length) * 100).toFixed(2)} %

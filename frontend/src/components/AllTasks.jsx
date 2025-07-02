@@ -38,7 +38,13 @@ const HomePage = () => {
                 </span>
               </div>
               <p className="text-gray-600">{task.description}</p>
-              <p className="text-sm text-gray-500 mt-2">
+             <div className="text-xs mt-2">
+              Priority:{" "} 
+               <p className={`${task.priority === "High"? "bg-red-400 text-white": 
+              task.priority === "Medium"? "bg-yellow-200 text-black" : "bg-green-400"} 
+              inline-block px-1 py-0.5 rounded-lg text-xs`}>{task.priority}</p>
+             </div>
+              <p className="text-sm text-gray-500 ">
                 Created At: {new Date(task.createdAt).toLocaleString()}
               </p>
             </li>
