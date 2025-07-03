@@ -7,8 +7,7 @@ import SideBar from "./SideBar";
 import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
-  const { tasks, pendingTasks, completedTasks, loading } =
-    useContext(taskContext);
+  const { tasks, pendingTasks, completedTasks, loading } = useContext(taskContext);
   const [open, setOpen] = useState(false);
 
   const completionRate =
