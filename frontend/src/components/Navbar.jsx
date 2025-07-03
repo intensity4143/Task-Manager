@@ -47,7 +47,7 @@ const Navbar = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("name")
     localStorage.removeItem("email")
-    navigate("/login")
+    navigate("/login", {replace:true});
   }
 
   useEffect(() => {
