@@ -45,6 +45,8 @@ const Navbar = () => {
     toast.success("Logged Out!")
     setMenuOpen(false);
     localStorage.removeItem("token")
+    localStorage.removeItem("name")
+    localStorage.removeItem("email")
     navigate("/login")
   }
 

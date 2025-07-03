@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, replace } from "react-router-dom";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Layout from "./components/Layout";
@@ -67,6 +67,7 @@ function App() {
     >
       <Routes>
         {/* Public Routes */}
+        <Route path ="/" element={<Navigate to = "/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
 
