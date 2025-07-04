@@ -71,7 +71,7 @@ const AllTasks = () => {
   if (error) return <div className="p-4 text-red-600">{error}</div>;
 
   return (
-    <div className="lg:p-8 p-6 max-w-4xl mx-auto rounded-lg bg-white">
+    <div className="lg:p-8 p-6 mx-auto rounded-lg bg-white">
       <h1 className="text-2xl text-red-600 mb-4">Your Tasks</h1>
 
       {tasks.length === 0 ? (

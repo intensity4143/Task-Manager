@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { CircleCheckBig, TrendingUp, LayoutDashboard, Menu, X} from 'lucide-react';
 
 const SideBar = () => {
 
   const[hamburger, setHamburger] = useState(false);
+  const [user, setUser] = useState("user");
+
+  //  fetch user name from local storage to display on sidebar
+  useEffect(() => {
+    const user = localStorage.getItem('name');
+    setUser(user);
+  }, [])
+  
 
   return (
     <>
@@ -24,7 +32,7 @@ const SideBar = () => {
         ${hamburger ? "translate-x-0" : "-translate-x-full"} 
         lg:translate-x-0 lg:flex`}
       >
-      <h1 className="text-xl font-bold text-gray-700 mb-4 mt-20 ml-5">Hi, User 👋</h1>
+      <h1 className="text-xl font-bold text-gray-700 mb-4 mt-20 ml-5">Hi, {user} 👋</h1>
        <NavLink
           to="/layout/allTasks"
           className={({ isActive }) =>
