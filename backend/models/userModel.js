@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const { isStrongPassword } = require("validator");
+const { isLowercase } = require("validator");
+// const { isStrongPassword } = require("validator");
 
 const userSchema = mongoose.Schema({
     name:{
@@ -10,11 +11,16 @@ const userSchema = mongoose.Schema({
         type: String, 
         required: true,
         unique: true,
+        trim:true,
+        lowercase: true,
     },
     password:{
         type: String,
         required: true,
+    },
+    imageUrl:{
+        type: String,
     }
-})
+}, {timeStamps: true});
 
 module.exports = mongoose.model("user", userSchema);

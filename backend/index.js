@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const fileUpload = require("express-fileupload");
 const cors = require('cors');
 
 require("dotenv").config();
@@ -10,6 +11,18 @@ const PORT = process.env.PORT || 4000;
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+
+// 👇 File upload middleware ( for user Image upload)
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/',
+}));
+
+// Connect to Cloudinary
+const cloudinary = require("./config/cloudinary");
+cloudinary.cloudinaryConnect();
+
 
 // db connection
 const dbConnect = require('./config/database')

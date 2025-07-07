@@ -103,7 +103,7 @@ const Navbar = () => {
                     <button
                       onClick={() => {
                         setMenuOpen(false);
-                        navigate("/profile");
+                        navigate("/layout/profile");
                       }}
                       className="w-full flex items-center gap-2"
                       role="menuitem"

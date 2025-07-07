@@ -11,6 +11,7 @@ import { useEffect, useState, createContext} from "react";
 import axios from "axios";
 import AddTask from "./components/AddTask";
 import DeleteTask from "./components/DeleteTask";
+import Profile from  "./components/Profile/Profile"
 
 const taskContext = createContext();
 
@@ -88,6 +89,7 @@ function App() {
           <Route path="completedTasks" element={<CompletedTasks />} />
           <Route path="pendingTasks" element={<PendingTasks/>} />
           <Route path="addTask" element={<AddTask/>} />
+          <Route path ="profile" element ={<Profile/>} />
         </Route>
       </Routes>
       {/* <DeleteTask/> */}

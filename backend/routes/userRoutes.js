@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {signUp, login, getCurrentUser, updateProfile, updatePassword} = require("../controllers/userController");
+const {signUp, login, getCurrentUser, updateProfile, updatePassword, imageUpload} = require("../controllers/userController");
 const { authMiddleWare } = require("../middleware/auth");
 
 // PUBLIC LINK
@@ -12,5 +12,6 @@ router.post('/login', login);
 router.get('/myDetails',authMiddleWare,  getCurrentUser);
 router.put('/updateProfile', authMiddleWare,  updateProfile);
 router.put('/updatePassword', authMiddleWare, updatePassword);
+router.post('/imageUpload', authMiddleWare, imageUpload);
 
 module.exports = router

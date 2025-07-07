@@ -1,8 +1,9 @@
 const User = require("../models/userModel");
 const validator = require("validator");
-// const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("cloudinary").v2;
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const TOKEN_EXPIRES = "24h";
@@ -250,6 +251,78 @@ exports.updatePassword = async (req, res) => {
     res.status(500).json({
       success: false,
       message: " Interval server error !",
+    });
+  }
+};
+
+// checking is file type supported or not
+function isFileTypeSupported(type, supportedTypes) {
+  return supportedTypes.includes(type.toLowerCase());
+}
+
+// function to upload file on cloudinary (file, folder name to store)
+async function uploadFileToCloudinary(file, folder) {
+  const options = { folder };
+  options.resource_type = "auto";
+
+  return await cloudinary.uploader.upload(file.tempFilePath, options);
+}
+
+// image upload handler
+exports.imageUpload = async (req, res) => {
+  try {
+
+    // image fetching
+    const file = req.files.imageFile;
+    console.log(file);
+    if (!req.files || !req.files.imageFile) {
+      return res.status(400).json({
+        success: false,
+        message: "No file to upload",
+      });
+    }
+
+    // validation
+    // supported file type
+    const supportedTypes = ["jpg", "jpeg", "png"];
+    const fileType = file.name.split(".").pop().toLowerCase(); // extracting file type
+
+    if (!isFileTypeSupported(fileType, supportedTypes)) {
+      return res.status(400).json({
+        success: false,
+        message: "File type not supported",
+      });
+    }
+
+    // file format supported hai to
+    // upload to cloudinary
+    const response = await uploadFileToCloudinary(file, "taskManager");
+    console.log(response);
+
+    const user = await User.findById(req.user.id).select("imageUrl");
+
+    // if user not found
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "User not found !",
+      });
+    }
+
+    user.imageUrl = response.secure_url, 
+
+    await user.save();
+    res.json({
+      success: true,
+      message: "profile picture changed successfully !",
+    });
+
+    
+  } catch (error) {
+    console.error(error.message);
+    return res.status(400).json({
+      success: false,
+      message: "something went wrong",
     });
   }
 };
