@@ -1,8 +1,11 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { taskContext } from "../../App";
 
 function Profile() {
+  const {image, setImage} = useContext(taskContext);
+
   const [file, setFile] = useState(null);
   
   const handleImageUpload = async (e) => {
@@ -27,7 +30,9 @@ function Profile() {
       );
 
       console.log(response.data.message);
-      localStorage.setItem("image",response.data)
+      setImage(response.data.imageUrl)
+      toast.success("Profile picture updated Successfully!")
+
     } catch (error) {
       toast.error(error?.response?.data?.message ||error.message);
     }

@@ -11,14 +11,18 @@ import {
 import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { taskContext } from "../App";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const menuref = useRef(null);
   const [dark, setDark] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [userName, setUserName] = useState("user");
-  const [userEmail, setUserEmail] = useState("user@gmail.com");
+  const [name, setName] = useState("user");
+  const [email, setEmail] = useState("user@gmail.com");
+
+  const {userName, userEmail} =useContext(taskContext);
 
   // handle menubar
   const handleMenuToggle = () => setMenuOpen((prev) => !prev);
@@ -45,22 +49,17 @@ const Navbar = () => {
     toast.success("Logged Out!")
     setMenuOpen(false);
     localStorage.removeItem("token")
-    localStorage.removeItem("name")
-    localStorage.removeItem("email")
     navigate("/login", {replace:true});
   }
 
   useEffect(() => {
     try {
-      const name = localStorage.getItem("name");
-      const email = localStorage.getItem("email");
-  
-      setUserName(name);
-      setUserEmail(email)
+      setName(userName);
+      setEmail(userEmail)
     
     } catch (error) {
-      setUserName("user");
-      setUserEmail("user@gamil.com")
+      setName("user");
+      setEmail("user@gamil.com")
     }
   }, [])
   

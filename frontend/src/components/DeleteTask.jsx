@@ -1,14 +1,18 @@
 import React from 'react'
 import { useContext } from 'react';
+import { taskContext } from '../App';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const DeleteTask = () => {
       const {
-    tasks,
     setTasks,
     setPendingTasks,
     setCompletedTasks,
-    error,
-    loading,
+    confirmDelete,
+    setConfirmDelete,
+    taskToDelete,
+    setTaskToDelete,
   } = useContext(taskContext);
 
     // delete Task functionality

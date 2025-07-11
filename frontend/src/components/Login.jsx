@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { taskContext } from "../App";
 
 function Login(props) {
+  const {
+        setUserName,
+        setUserEmail,
+        setImage,} = useContext(taskContext);
+        
   const navigate = useNavigate();
 
   const handleLogin = async (data) => {
@@ -12,14 +18,18 @@ function Login(props) {
       const response = await axios.post(
         "http://localhost:3000/api/user/login",
         data
-      ); // send user login credentials to server
-      toast.success("Login successfull !"); // pop up
+      ); 
+      // send user login credentials to server
       localStorage.setItem("token", response.data.token); // set token in local storage for authorization
-      localStorage.setItem("name", response.data.user.name); // set name in local 
-      localStorage.setItem("email", response.data.user.email); // set email in local storage 
-      console.log("user data:- ", response.data);
+      toast.success("Login successfull !"); // pop up
+      setUserName(response.data.user.name); // set name 
+      setUserEmail(response.data.user.email); // set email 
+      setImage(response.data.user?.imageUrl); // set image url 
+      // console.log(response.data.user.imageUrl)
+      console.log(response.data);
       navigate("/layout/allTasks"); // navigate to Home or Dashboard
-    } catch (error) {
+    } 
+    catch (error) {
       toast.error("Error while Login !");
       console.log(error.response.data || error.message);
     }

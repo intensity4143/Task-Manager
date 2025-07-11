@@ -314,6 +314,7 @@ exports.imageUpload = async (req, res) => {
     await user.save();
     res.json({
       success: true,
+      imageUrl: response.secure_url, 
       message: "profile picture changed successfully !",
     });
 
