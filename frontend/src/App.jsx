@@ -59,8 +59,6 @@ function App() {
         setImage,
       }}
     >
-      <DeleteTask />
-      <SideBar/>
 
       <Routes>
         {/* Public Routes */}
