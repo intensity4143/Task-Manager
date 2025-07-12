@@ -24,7 +24,7 @@ const AllTasks = () => {
   //  if task not fetched yet
   if (loading)
     return (
-      <div className="p-4 flex justify-center items-center h-[100vh]">
+      <div className="p-6 flex justify-center items-center h-[100vh]">
         Loading Tasks.....
       </div>
     );

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Layout from "./components/Layout";
@@ -7,11 +7,11 @@ import AllTasks from "./components/AllTasks";
 import CompletedTasks from "./components/CompletedTasks";
 import PendingTasks from "./components/PendingTasks";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useEffect, useState, createContext } from "react";
-import axios from "axios";
+import {useState, createContext } from "react";
 import AddTask from "./components/AddTask";
 import DeleteTask from "./components/DeleteTask";
 import Profile from "./components/Profile/Profile";
+import SideBar from "./components/SideBar";
 
 const taskContext = createContext();
 
@@ -29,38 +29,6 @@ function App() {
   const [userEmail, setUserEmail] = useState("user@gmail.com");
   const [image, setImage] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchTasks = async () => {
-  //     const token = localStorage.getItem("token");
-  //     if (!token) {
-  //       setError("Please wait.");
-  //       setLoading(false);
-  //       return;
-  //     }
-
-  //     try {
-  //       const response = await axios.get("http://127.0.0.1:3000/api/tasks", {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-
-  //       if (response.data.success) {
-  //         const fetchedTasks = response.data.tasks;
-  //         setTasks(fetchedTasks);
-  //         setCompletedTasks(fetchedTasks.filter((task) => task.completed));
-  //         setPendingTasks(fetchedTasks.filter((task) => !task.completed));
-  //       }
-  //     } catch (error) {
-  //       setError("Error while fetching tasks");
-  //       console.log("Error fetching tasks", error);
-  //     }
-  //     setLoading(false);
-  //   };
-
-  //   // added delay so that it runs when token is set to localStorage
-  //   setTimeout(fetchTasks, 200);
-  // }, []);
 
   return (
     <taskContext.Provider
@@ -92,6 +60,7 @@ function App() {
       }}
     >
       <DeleteTask />
+      <SideBar/>
 
       <Routes>
         {/* Public Routes */}

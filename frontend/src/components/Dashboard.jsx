@@ -17,11 +17,43 @@ const Dashboard = () => {
     setCompletedTasks,
     loading,
     setLoading,
-    setError
+    setError,
+    setUserName,
+    setUserEmail,
+    setImage,
   } = useContext(taskContext);
 
   const [open, setOpen] = useState(false);
 
+  // get user details on every refresh 
+  useEffect(() => {
+    const getUserDetails = async () => {
+      try {
+        const token = localStorage.getItem("token"); // extract token from local storage
+        const response = await axios.get(
+          "http://127.0.0.1:3000/api/user/myDetails",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.data.success) {
+          setUserName(response.data.user.name); // set name
+          setUserEmail(response.data.user.email); // set email
+          setImage(response.data.user?.imageUrl); // set image url
+        }
+      } catch (error) {
+        setError("Error while fetching tasks");
+        console.log("Error fetching tasks", error);
+      }
+    };
+
+    getUserDetails();
+  }, []);
+
+
+  //  get all task on every refresh 
   useEffect(() => {
     const fetchTasks = async () => {
       const token = localStorage.getItem("token");
@@ -125,7 +157,7 @@ const Dashboard = () => {
         </div>
 
         {/* Tasks layout*/}
-        <div className="p-6">
+        <div className="lg:p-6 p-2.5">
           <Outlet />
         </div>
       </div>

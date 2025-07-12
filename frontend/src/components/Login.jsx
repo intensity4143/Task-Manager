@@ -6,11 +6,6 @@ import { toast } from "react-toastify";
 import { taskContext } from "../App";
 
 function Login(props) {
-  const {
-        setUserName,
-        setUserEmail,
-        setImage,} = useContext(taskContext);
-        
   const navigate = useNavigate();
 
   const handleLogin = async (data) => {
@@ -20,12 +15,9 @@ function Login(props) {
         data
       ); 
       // send user login credentials to server
+      
       localStorage.setItem("token", response.data.token); // set token in local storage for authorization
       toast.success("Login successfull !"); // pop up
-      setUserName(response.data.user.name); // set name 
-      setUserEmail(response.data.user.email); // set email 
-      setImage(response.data.user?.imageUrl); // set image url 
-      // console.log(response.data.user.imageUrl)
       console.log(response.data);
       navigate("/layout/allTasks"); // navigate to Home or Dashboard
     } 

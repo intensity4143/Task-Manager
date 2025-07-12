@@ -5,21 +5,25 @@ import { taskContext } from "../../App";
 
 function Profile() {
   const {image, setImage} = useContext(taskContext);
+  const [loading, setLoading] =useState(false)
 
   const [file, setFile] = useState(null);
   
   const handleImageUpload = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const token = localStorage.getItem("token")
     
-    if (!file)
-      return toast.error("Please upload image to change profile picture");
-
+    if (!file){
+      toast.error("Please upload image to change profile picture");
+      setLoading(false); 
+      return
+    }
     const formData = new FormData();
     formData.append("imageFile", file);
 
     try {
-      const response = await axios.post(
+      const response = await axios.put(
         "http://127.0.0.1:3000/api/user/imageUpload",
         formData ,
         {
@@ -30,6 +34,7 @@ function Profile() {
       );
 
       console.log(response.data.message);
+      setLoading(false);
       setImage(response.data.imageUrl)
       toast.success("Profile picture updated Successfully!")
 
@@ -51,8 +56,10 @@ function Profile() {
           className="bg-yellow-300"
           onChange={(e) => setFile(e.target.files[0])}
         />
-        <button type="submit" className="border rounded-md px-2 cursor-pointer">
-          upload image
+        <button type="submit" className="border rounded-md px-2 cursor-pointer"
+        disabled = {loading}
+        >
+          {loading ? "...uploading" : "Upload image"}
         </button>
       </form>
     </div>

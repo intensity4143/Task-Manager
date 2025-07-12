@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useContext } from "react";
 import { taskContext } from "../App";
+import userImg from "../assets/userImg.png"
 
 const SideBar = () => {
   // using Context to get user details to show on sidebar such as name, image
@@ -34,12 +35,24 @@ const SideBar = () => {
         ${hamburger ? "translate-x-0" : "-translate-x-full"} 
         lg:translate-x-0 lg:flex`}
       >
-        <div className="ml-5 mb-4">
-          <div className="  w-[80%] border-2 p-0.5 rounded-xl bg-black">
-            <img src={image} alt="userImage" className="rounded-xl border-2"/>
+        <div className="flex flex-col items-center">
+          <div className="  w-[70%] p-1 rounded-full bg-black">
+            {image === "" ? (
+              <img
+                src = {userImg} // placeholder image
+                alt="default user"
+                className="rounded-full h-35 w-[100%]"
+              />
+            ) : (
+              <img
+                src = {image}
+                alt="userImage"
+                className="rounded-full h-35 w-[100%]"
+              />
+            )}
           </div>
           <h1 className="text-2xl font-bold text-gray-700 mb-4 mt-0.5">
-            Hi, {userName} 👋
+            Hi, {userName || "user"} 👋
           </h1>
         </div>
 

@@ -20,6 +20,7 @@ const userSchema = mongoose.Schema({
     },
     imageUrl:{
         type: String,
+        default:""
     }
 }, {timeStamps: true});
 

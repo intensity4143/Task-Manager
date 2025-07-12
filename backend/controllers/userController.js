@@ -143,7 +143,7 @@ exports.getCurrentUser = async (req, res) => {
     const userId = req.user.id;
 
     // finding user by id and extracting "name" and "email"
-    const user = await User.findById(userId).select("name email");
+    const user = await User.findById(userId).select("name email imageUrl");
 
     // when user not found
     if (!user) {
