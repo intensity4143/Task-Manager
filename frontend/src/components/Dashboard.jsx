@@ -157,7 +157,7 @@ const Dashboard = () => {
         </div>
 
         {/* Tasks layout*/}
-        <div className="lg:p-6 p-2.5">
+        <div className="lg:p-6 md:p-6 p-2">
           <Outlet />
         </div>
       </div>

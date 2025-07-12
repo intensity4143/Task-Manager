@@ -36,7 +36,7 @@ const completedTasks = () => {
   if (error) return <div className="p-4 text-red-600">{error}</div>;
 
   return (
-    <div className="lg:p-8 p-6 mx-auto rounded-lg bg-white">
+    <div className="lg:p-8 md:p-6 p-3 mx-auto rounded-lg bg-white">
       <h1 className="text-2xl text-red-600 mb-4">Your Completed Tasks</h1>
       {completedTasks.length === 0 ? (
         <p className="text-center text-lg text-gray-500 italic mt-4">
