@@ -15,7 +15,10 @@ const DeleteTask = () => {
     setTaskToDelete,
   } = useContext(taskContext);
 
-    // delete Task functionality
+  // server URL 
+  const url = https://task-manager-backend-srzi.onrender.com
+  
+  // delete Task functionality
   const handleDelete = async () => {
     const token = localStorage.getItem("token");
     if (!token) return toast.error("You can't Delete task . please Login");
@@ -25,7 +28,7 @@ const DeleteTask = () => {
     try {
       const taskId = task._id;
       const response = await axios.delete(
-        `http://127.0.0.1:3000/api/tasks/${taskId}`,
+        `{url}/api/tasks/${taskId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
