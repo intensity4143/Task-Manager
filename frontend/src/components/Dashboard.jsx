@@ -24,7 +24,7 @@ const Dashboard = () => {
   } = useContext(taskContext);
 
   const [open, setOpen] = useState(false);
-  const url = https://task-manager-backend-srzi.onrender.com
+  const url = "https://task-manager-backend-srzi.onrender.com"
 
   // get user details on every refresh 
   useEffect(() => {
