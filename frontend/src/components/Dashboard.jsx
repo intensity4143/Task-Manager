@@ -24,6 +24,7 @@ const Dashboard = () => {
   } = useContext(taskContext);
 
   const [open, setOpen] = useState(false);
+  const url = https://task-manager-backend-srzi.onrender.com
 
   // get user details on every refresh 
   useEffect(() => {
@@ -31,7 +32,7 @@ const Dashboard = () => {
       try {
         const token = localStorage.getItem("token"); // extract token from local storage
         const response = await axios.get(
-          "http://127.0.0.1:3000/api/user/myDetails",
+          url+"/api/user/myDetails",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -64,7 +65,7 @@ const Dashboard = () => {
       }
 
       try {
-        const response = await axios.get("http://127.0.0.1:3000/api/tasks", {
+        const response = await axios.get(url+"/api/tasks", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
