@@ -6,6 +6,7 @@ import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const url = https://task-manager-backend-srzi.onrender.com
 
   const {
     register,
@@ -16,7 +17,7 @@ const SignUp = () => {
   const handleSignUp = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/signUp",
+        url+"/api/user/signUp",
         data
       ); // register user
       toast.success("signUp successfull !"); // pop up displaying user signed in successfully
