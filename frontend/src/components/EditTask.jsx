@@ -12,6 +12,8 @@ const EditTask = ({ setOpen, taskToEdit }) => {
   const [priority, setPriority] = useState("Low");
   const [dueDate, setDueDate] = useState("");
   const [completed, setCompleted] = useState(false);
+  //server url
+  const url = https://task-manager-backend-srzi.onrender.com
 
   // Prevent rendering if taskToEdit is not ready
   if (!taskToEdit) return null;
@@ -41,7 +43,7 @@ const EditTask = ({ setOpen, taskToEdit }) => {
     const taskId = taskToEdit._id;
     try {
       const response = await axios.put(
-        `http://127.0.0.1:3000/api/tasks/${taskId}`,
+        `{url}/api/tasks/${taskId}`,
         {
           title,
           description,
