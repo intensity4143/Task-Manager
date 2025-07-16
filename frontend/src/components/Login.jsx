@@ -8,7 +8,7 @@ import { taskContext } from "../App";
 function Login(props) {
   const navigate = useNavigate();
   // server url
-  const url = https://task-manager-backend-srzi.onrender.com
+  const url = "https://task-manager-backend-srzi.onrender.com"
 
   const handleLogin = async (data) => {
     try {
