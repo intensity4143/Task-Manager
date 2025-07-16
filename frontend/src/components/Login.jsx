@@ -7,11 +7,13 @@ import { taskContext } from "../App";
 
 function Login(props) {
   const navigate = useNavigate();
+  // server url
+  const url = https://task-manager-backend-srzi.onrender.com
 
   const handleLogin = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/user/login",
+        url+"/api/user/login",
         data
       ); 
       // send user login credentials to server
