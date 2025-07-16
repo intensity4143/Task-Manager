@@ -16,7 +16,7 @@ const DeleteTask = () => {
   } = useContext(taskContext);
 
   // server URL 
-  const url = https://task-manager-backend-srzi.onrender.com
+  const url = "https://task-manager-backend-srzi.onrender.com"
   
   // delete Task functionality
   const handleDelete = async () => {
