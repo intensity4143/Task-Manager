@@ -12,7 +12,7 @@ const AddTask = ({ setOpen }) => {
   const [priority, setPriority] = useState("Low");
   const [dueDate, setDueDate] = useState("");
   const [completed, setCompleted] = useState(false);
-  const url = https://task-manager-backend-srzi.onrender.com
+  const url = "https://task-manager-backend-srzi.onrender.com"   // serber url
 
   const handleSubmit = async (e) => {
     e.preventDefault();
