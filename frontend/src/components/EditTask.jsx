@@ -13,7 +13,7 @@ const EditTask = ({ setOpen, taskToEdit }) => {
   const [dueDate, setDueDate] = useState("");
   const [completed, setCompleted] = useState(false);
   //server url
-  const url = https://task-manager-backend-srzi.onrender.com
+  const url = "https://task-manager-backend-srzi.onrender.com"
 
   // Prevent rendering if taskToEdit is not ready
   if (!taskToEdit) return null;
