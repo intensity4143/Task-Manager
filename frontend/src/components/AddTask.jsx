@@ -12,6 +12,7 @@ const AddTask = ({ setOpen }) => {
   const [priority, setPriority] = useState("Low");
   const [dueDate, setDueDate] = useState("");
   const [completed, setCompleted] = useState(false);
+  const url = https://task-manager-backend-srzi.onrender.com
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +31,7 @@ const AddTask = ({ setOpen }) => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:3000/api/tasks",
+        url+"/api/tasks",
         {
           title,
           description,
