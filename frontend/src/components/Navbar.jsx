@@ -65,22 +65,22 @@ const Navbar = () => {
   
 
   return (
-    <div className="text-white sticky top-0 w-[100%] z-30">
-      <nav className="flex justify-around bg-blue-700 py-2.5">
+    <div className="text-white sticky top-0 w-[100%] z-30 bg-blue-800">
+      <nav className="flex justify-around lg:justify-between  bg-blue-800 py-2.5 w-[80%] m-auto ml-15 lg:m-auto md:m-auto md:justify-between">
         <div>
           <NavLink to="/layout/allTasks">
-            <Slack className="text-white inline-block"/> <span className="font-semibold">TaskManager</span>
+            <Slack className="text-orange-600 inline-block" size={45}/> <span className="font-semibold text-2xl ml-0.5 italic">TaskManager</span>
           </NavLink>
         </div>
 
         <div>
           <ul className="flex justify-center items-center flex-row space-x-5">
             {/* dark mode button */}
-            <li>
+            {/* <li>
               <button onClick={handleDarkMode}>
                 {dark == "dark" ? <MoonStar /> : <SunMoon />}
               </button>
-            </li>
+            </li> */}
 
             {/* profile button */}
             <li
@@ -88,15 +88,15 @@ const Navbar = () => {
               className="relative hover:text-purple-300 transition-colors duration-300"
             >
               <button onClick={handleMenuToggle}>
-                <CircleUser size={30} />
+                <CircleUser size={45} />
               </button>
 
               {/* Dropdown of profile button */}
               {menuOpen && (
                 <ul className="absolute top-10 right-0 w-56 bg-white rounded-2xl text-black shadow-lg px-2">
                   <li className="p-3 border-b">
-                    <p className="text-sm font-medium">{userName}</p>
-                    <p className="text-xs text-gray-500">{userEmail}</p>
+                    <p className="text-lg font-medium">{userName}</p>
+                    <p className="text-md text-gray-500">{userEmail}</p>
                   </li>
                   <li className="p-2 my-2 hover:bg-gray-100 rounded-b-xl">
                     <button

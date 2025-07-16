@@ -3,9 +3,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { taskContext } from "../App";
 
-const AddTask = ({setOpen}) => {
-
-   const{setTasks, setPendingTasks, setCompletedTasks} = useContext(taskContext);
+const AddTask = ({ setOpen }) => {
+  const { setTasks, setPendingTasks, setCompletedTasks } =
+    useContext(taskContext);
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -47,14 +47,15 @@ const AddTask = ({setOpen}) => {
 
       setOpen(false); // closing add Task box
 
-      const newTask = response.data.task;  // newly created task
+      const newTask = response.data.task; // newly created task
 
-      // adding new Task to all task 
-      setTasks((prevTasks) => [...prevTasks, newTask]); 
+      // adding new Task to all task
+      setTasks((prevTasks) => [...prevTasks, newTask]);
 
-       // add new task to completed or pending
-      if(newTask.completed) setCompletedTasks((prevTasks) => [...prevTasks, newTask]) 
-      else setPendingTasks((prevTasks) => [...prevTasks, newTask])  
+      // add new task to completed or pending
+      if (newTask.completed)
+        setCompletedTasks((prevTasks) => [...prevTasks, newTask]);
+      else setPendingTasks((prevTasks) => [...prevTasks, newTask]);
 
       toast.success("Task Added Successfully!");
       console.log(response.data);
@@ -65,8 +66,7 @@ const AddTask = ({setOpen}) => {
       setPriority("Low");
       setDueDate("");
       setCompleted(false);
-    } 
-    catch (error) {
+    } catch (error) {
       toast.error("Failed to add task");
       console.error(error.response?.message || error.message);
     }
@@ -90,11 +90,11 @@ const AddTask = ({setOpen}) => {
         <label className="text-sm font-medium text-gray-700 mb-1">
           Description
         </label>
-        <input
-          type="text"
+        <textarea
           value={description || ""}
           onChange={(e) => setDescription(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-md bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          rows={4} // You can increase rows for more initial height
+          className="px-3 py-2 border border-gray-300 rounded-md bg-slate-50 text-sm resize-y overflow-auto focus:outline-none focus:ring-2 focus:ring-green-500"
         />
       </div>
 

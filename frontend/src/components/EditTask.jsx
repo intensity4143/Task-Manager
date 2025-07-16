@@ -38,7 +38,7 @@ const EditTask = ({ setOpen, taskToEdit }) => {
       return;
     }
 
-    const taskId = taskToEdit._id
+    const taskId = taskToEdit._id;
     try {
       const response = await axios.put(
         `http://127.0.0.1:3000/api/tasks/${taskId}`,
@@ -61,9 +61,7 @@ const EditTask = ({ setOpen, taskToEdit }) => {
 
       // Replace in main task list
       setTasks((prev) =>
-        prev.map((task) =>
-          task._id === updatedTask._id ? updatedTask : task
-        )
+        prev.map((task) => (task._id === updatedTask._id ? updatedTask : task))
       );
 
       // Re-separate based on completion
@@ -78,7 +76,6 @@ const EditTask = ({ setOpen, taskToEdit }) => {
       });
 
       toast.success("Task edited successfully!");
-
     } catch (error) {
       toast.error("Failed to edit task");
       console.error(error.response?.data?.message || error.message);
@@ -100,18 +97,22 @@ const EditTask = ({ setOpen, taskToEdit }) => {
 
       {/* Description */}
       <div className="flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">Description</label>
-        <input
-          type="text"
+        <label className="text-sm font-medium text-gray-700 mb-1">
+          Description
+        </label>
+        <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="px-3 py-2 border border-gray-300 rounded-md bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
+          rows={4} // You can increase rows for more initial height
+          className="px-3 py-2 border border-gray-300 rounded-md bg-slate-50 text-sm resize-y overflow-auto focus:outline-none focus:ring-2 focus:ring-green-500"
         />
       </div>
 
       {/* Priority */}
       <div className="flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">Priority</label>
+        <label className="text-sm font-medium text-gray-700 mb-1">
+          Priority
+        </label>
         <select
           value={priority}
           onChange={(e) => setPriority(e.target.value)}
@@ -125,7 +126,9 @@ const EditTask = ({ setOpen, taskToEdit }) => {
 
       {/* Due Date */}
       <div className="flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">Due Date</label>
+        <label className="text-sm font-medium text-gray-700 mb-1">
+          Due Date
+        </label>
         <input
           type="date"
           value={dueDate}
@@ -136,7 +139,9 @@ const EditTask = ({ setOpen, taskToEdit }) => {
 
       {/* Completed */}
       <div className="flex flex-col">
-        <label className="text-sm font-medium text-gray-700 mb-1">Completed</label>
+        <label className="text-sm font-medium text-gray-700 mb-1">
+          Completed
+        </label>
         <div className="flex gap-4 text-sm">
           <label className="flex items-center gap-1">
             <input

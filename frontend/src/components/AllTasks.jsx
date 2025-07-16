@@ -47,9 +47,9 @@ const AllTasks = () => {
               className="p-4 rounded shadow-md shadow-slate-700 border border-slate-600"
             >
               <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold">{task.title}</h2>
+                <h2 className="text-2xl font-semibold">{task.title}</h2>
                 <span
-                  className={`text-xs px-2 py-1 rounded-full ${
+                  className={`text-md px-2 py-1 rounded-full ${
                     task.completed
                       ? "bg-green-100 text-green-700"
                       : "bg-yellow-100 text-yellow-700"
@@ -58,8 +58,8 @@ const AllTasks = () => {
                   {task.completed ? "Completed" : "Pending"}
                 </span>
               </div>
-              <p className="text-gray-600">{task.description}</p>
-              <div className="text-xs mt-2">
+              <p className="text-gray-700 text-lg">{task.description}</p>
+              <div className="text-md mt-2">
                 Priority:{" "}
                 <p
                   className={`${
@@ -69,7 +69,7 @@ const AllTasks = () => {
                       ? "bg-yellow-200 text-black"
                       : "bg-green-400"
                   } 
-              inline-block px-1 py-0.5 rounded-lg text-xs`}
+              inline-block px-1 py-0.5 rounded-lg text-sm`}
                 >
                   {task.priority}
                 </p>
@@ -88,7 +88,7 @@ const AllTasks = () => {
                       setConfirmDelete(true);
                     }}
                   >
-                    <Trash2 size={18} />
+                    <Trash2 size={22} />
                   </button>
 
                   <button
@@ -98,7 +98,7 @@ const AllTasks = () => {
                       setOpen(true);
                     }}
                   >
-                    <SquarePen size={18} />
+                    <SquarePen size={22} />
                   </button>
                 </div>
               </div>

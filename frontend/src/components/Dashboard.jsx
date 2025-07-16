@@ -99,10 +99,10 @@ const Dashboard = () => {
       </div>
 
       {/* Main Content with left margin to avoid overlap */}
-      <div className="lg:ml-64 flex-1">
+      <div className="lg:w-[80%] absolute top-16 right-0 w-[100%] ">
         <div className="p-6">
           {/* Header */}
-          <div className="flex justify-between items-center mb-6">
+          <div className="flex justify-between items-center mb-5">
             <h2 className="text-xl font-semibold text-gray-800">
               Task Overview
             </h2>
@@ -110,8 +110,8 @@ const Dashboard = () => {
             {/* Modal */}
             <Dialog.Root open={open} onOpenChange={setOpen}>
               <Dialog.Trigger asChild>
-                <button className="bg-green-800 text-white text-sm px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-green-700 transition">
-                  Add New Task <Plus size={16} />
+                <button className="bg-green-800 text-white text-lg px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-green-700 transition">
+                  Add New Task <Plus size={25} />
                 </button>
               </Dialog.Trigger>
 
@@ -157,7 +157,7 @@ const Dashboard = () => {
         </div>
 
         {/* Tasks layout*/}
-        <div className="lg:p-6 md:p-6 p-2">
+        <div className="lg:p-6 md:p-6 p-2 bg-gray-200">
           <Outlet />
         </div>
       </div>
@@ -168,8 +168,8 @@ const Dashboard = () => {
 // Reusable Status Card component
 const StatCard = ({ title, value }) => (
   <div className="bg-white lg:p-4 p-2.5 rounded-lg shadow-md shadow-slate-700 text-center ">
-    <h3 className="text-sm text-gray-600">{title}</h3>
-    <p className="text-2xl font-bold text-gray-800">{value}</p>
+    <h3 className="text-md text-gray-600">{title}</h3>
+    <p className="lg:text-2xl md:text-2xl text-xl font-bold text-gray-800">{value}</p>
   </div>
 );
 

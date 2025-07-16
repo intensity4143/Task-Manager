@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { useContext } from "react";
 import { taskContext } from "../App";
-import userImg from "../assets/userImg.png"
+import userImg from "../assets/userImg.png";
 
 const SideBar = () => {
   // using Context to get user details to show on sidebar such as name, image
@@ -25,41 +25,40 @@ const SideBar = () => {
           onClick={() => setHamburger((prev) => !prev)}
           className=" text-white p-1"
         >
-          {hamburger ? <X className="text-black" /> : <Menu size={24} />}
+          {hamburger ? (
+            <X className="text-black mr-2" size={35} />
+          ) : (
+            <Menu size={35} />
+          )}
         </button>
       </div>
 
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-screen w-64 bg-white shadow-md z-40 px-4 pt-20 flex-col gap-3 transition-transform duration-300 flex lg:z-10
+        className={`fixed top-0 left-0 h-screen lg:w-[20%]  bg-white shadow-md z-40 md:px-10 md:w-[45%] px-4 lg:px-4 w-[70%] pt-30 flex-col gap-10 transition-transform duration-300 flex lg:z-10
         ${hamburger ? "translate-x-0" : "-translate-x-full"} 
         lg:translate-x-0 lg:flex`}
       >
         <div className="flex flex-col items-center">
-          <div className="  w-[70%] p-1 rounded-full bg-black">
-            {image === "" ? (
-              <img
-                src = {userImg} // placeholder image
-                alt="default user"
-                className="rounded-full h-35 w-[100%]"
-              />
-            ) : (
-              <img
-                src = {image}
-                alt="userImage"
-                className="rounded-full h-35 w-[100%]"
-              />
-            )}
+          <div className=" p-1 rounded-full border-4">
+            <img
+              src={image === "" ? userImg : image}
+              alt="userImage"
+              className="rounded-full h-40 object-cover border-1 w-[100%]"
+            />
           </div>
           <h1 className="text-2xl font-bold text-gray-700 mb-4 mt-0.5">
             Hi, {userName || "user"} 👋
           </h1>
         </div>
 
-        <NavLink
+        <div className="flex flex-col w-full max-w-[300px] gap-3 mx-auto">
+
+
+          <NavLink
           to="/layout/allTasks"
           className={({ isActive }) =>
-            `px-4 py-2 rounded-md text-sm font-medium transition ${
+            `px-4 py-2 rounded-md text-md font-medium transition ${
               isActive
                 ? "bg-blue-600 text-white shadow-md"
                 : "bg-white text-gray-700 hover:bg-gray-100"
@@ -72,7 +71,7 @@ const SideBar = () => {
         <NavLink
           to="/layout/completedTasks"
           className={({ isActive }) =>
-            `px-4 py-2 rounded-md text-sm font-medium transition ${
+            `px-4 py-2 rounded-md text-md font-medium transition ${
               isActive
                 ? "bg-green-600 text-white shadow-md"
                 : "bg-white text-gray-700 hover:bg-gray-100"
@@ -86,7 +85,7 @@ const SideBar = () => {
         <NavLink
           to="/layout/pendingTasks"
           className={({ isActive }) =>
-            `px-4 py-2 rounded-md text-sm font-medium transition ${
+            `px-4 py-2 rounded-md text-md font-medium transition ${
               isActive
                 ? "bg-yellow-500 text-white shadow-md"
                 : "bg-white text-gray-700 hover:bg-gray-100"
@@ -95,6 +94,7 @@ const SideBar = () => {
         >
           <TrendingUp className="inline-block mx-1.5" /> Pending
         </NavLink>
+        </div>
       </div>
     </>
   );
