@@ -8,6 +8,9 @@ function Profile() {
   const [loading, setLoading] =useState(false)
 
   const [file, setFile] = useState(null);
+
+  // server URL
+  const url = "https://task-manager-backend-srzi.onrender.com"
   
   const handleImageUpload = async (e) => {
     e.preventDefault();
@@ -24,7 +27,7 @@ function Profile() {
 
     try {
       const response = await axios.put(
-        "http://127.0.0.1:3000/api/user/imageUpload",
+        url+"/api/user/imageUpload",
         formData ,
         {
           headers: {
