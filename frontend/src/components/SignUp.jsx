@@ -6,7 +6,7 @@ import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const url = https://task-manager-backend-srzi.onrender.com
+  const url = "https://task-manager-backend-srzi.onrender.com"
 
   const {
     register,
