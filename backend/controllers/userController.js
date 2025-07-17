@@ -172,7 +172,7 @@ exports.updateProfile = async (req, res) => {
     const { name, email } = req.body;
 
     // validation
-    if (!name || !email || !validator(email)) {
+    if (!name || !email || !validator.isEmail(email)) {
       return res.status(400).json({
         success: false,
         message: "Invalid name or email!",
@@ -190,7 +190,7 @@ exports.updateProfile = async (req, res) => {
     }
 
     // update user details
-    const user = await findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
       req.user.id,
       { name, email },
       { new: true, runValidators: true }.select("name email")
