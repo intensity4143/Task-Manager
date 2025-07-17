@@ -8,11 +8,24 @@ require("dotenv").config();
 const PORT = process.env.PORT || 4000;
 
 // middleware 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://task-manager-rfo2.onrender.com"
+];
+
 app.use(cors({
-  origin: "https://task-manager-rfo2.onrender.com", // your frontend URL
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
 }));
+
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
