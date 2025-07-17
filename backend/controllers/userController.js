@@ -193,7 +193,7 @@ exports.updateProfile = async (req, res) => {
     const user = await User.findByIdAndUpdate(
       req.user.id,
       { name, email },
-      { new: true, runValidators: true }.select("name email")
+      { new: true, runValidators: true }
     );
 
     res.json({
