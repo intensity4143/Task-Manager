@@ -43,7 +43,7 @@ const EditTask = ({ setOpen, taskToEdit }) => {
     const taskId = taskToEdit._id;
     try {
       const response = await axios.put(
-        `{url}/api/tasks/${taskId}`,
+        `${url}/api/tasks/${taskId}`,
         {
           title,
           description,

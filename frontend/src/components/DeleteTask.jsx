@@ -28,7 +28,7 @@ const DeleteTask = () => {
     try {
       const taskId = task._id;
       const response = await axios.delete(
-        `{url}/api/tasks/${taskId}`,
+        `${url}/api/tasks/${taskId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
