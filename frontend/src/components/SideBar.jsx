@@ -40,11 +40,11 @@ const SideBar = () => {
         lg:translate-x-0 lg:flex`}
       >
         <div className="flex flex-col items-center">
-          <div className=" p-1 rounded-full border-4">
+          <div className=" p-1 rounded-full border-4 w-40 h-40">
             <img
               src={image === "" ? userImg : image}
               alt="userImage"
-              className="rounded-full h-40 object-cover border-1 w-[100%]"
+              className="rounded-full object-cover h-[100%] border-1 w-[100%]"
             />
           </div>
           <h1 className="text-2xl font-bold text-gray-700 mb-4 mt-0.5">
