@@ -295,7 +295,7 @@ function Profile() {
             <div>
               <input
                 type="password"
-                placeholder="New Password"
+                placeholder="Confirm Password"
                 {...registerPassword("confirmPassword", {
                   required: "Current Password is required",
                 })}

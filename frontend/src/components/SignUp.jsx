@@ -112,8 +112,8 @@ const SignUp = () => {
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
-                    value: 6,
-                    message: "Password must be at least 6 characters",
+                    value: 8,
+                    message: "Password must be at least 8 characters",
                   },
                 })}
                 className={`w-full pl-10 pr-4 py-2 rounded-lg border ${

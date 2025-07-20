@@ -84,10 +84,6 @@ function Login(props) {
                 placeholder="••••••••"
                 {...register("password", {
                   required: "Password is required",
-                  minLength: {
-                    value: 8,
-                    message: "Password must be at least 8 characters long",
-                  },
                 })}
                 className={`w-full pl-10 pr-4 py-2 rounded-lg border ${
                   errors.password ? "border-red-500" : "border-gray-300"
