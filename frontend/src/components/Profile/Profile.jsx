@@ -171,7 +171,7 @@ function Profile() {
     <div className="mb-2">
       <h1 className="text-2xl text-center text-white bg-green-600 px-2 py-1.5 rounded-lg mb-4"><Settings className="inline-block"/> Profile Setting</h1>
       <div className="flex justify-center items-center gap-4 flex-wrap ">
-        <div className="bg-white px-4 py-6 rounded-lg w-xs mx-2">
+        <div className="bg-white px-4 py-6 rounded-lg w-xs mx-2 shadow-lg shadow-gray-700">
           <h1 className="text-lg font-semibold mb-4">
             <SquareUserRound className="inline-block" size={25} />
             {" "} Personal Information
@@ -239,7 +239,7 @@ function Profile() {
         {/* ---------------------------------------------- */}
 
         {/* password change field */}
-        <div className="bg-white px-4 py-6 rounded-lg w-xs ">
+        <div className="bg-white px-4 py-6 rounded-lg w-xs shadow-lg shadow-gray-700">
           <h1 className="text-lg font-semibold mb-4">
             <ShieldCheck className="inline-block" size={25}/>
             {" "}Security</h1>

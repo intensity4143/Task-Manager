@@ -33,7 +33,7 @@ const AllTasks = () => {
 
   return (
     <div className="lg:p-8 md:p-6 p-3 mx-auto rounded-lg bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
-      <h1 className="text-2xl text-red-600 mb-4">Your Tasks</h1>
+      <h1 className="text-2xl text-red-600 mb-4">All Tasks</h1>
 
       {tasks.length === 0 ? (
         <p className="text-center text-lg text-gray-500 italic mt-4">

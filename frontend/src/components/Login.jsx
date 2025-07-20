@@ -34,14 +34,14 @@ function Login(props) {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-2 bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
-      <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-sm">
+      <div className="bg-white py-8 px-4 rounded-2xl shadow-md w-full max-w-sm">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
           Login
         </h1>
         <form onSubmit={handleSubmit(handleLogin)} className="space-y-5">
           {/* Email Field */}
           <div>
-            <label className="block mb-1 font-semibold text-gray-700">
+            <label className="block mb-1 font-semibold text-gray-700 ml-2">
               Email
             </label>
 
@@ -72,7 +72,7 @@ function Login(props) {
 
           {/* Password Field */}
           <div>
-            <label className="block mb-1 font-semibold text-gray-700">
+            <label className="block mb-1 font-semibold text-gray-700 ml-2">
               Password
             </label>
 
