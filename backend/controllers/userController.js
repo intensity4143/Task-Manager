@@ -217,7 +217,7 @@ exports.updatePassword = async (req, res) => {
     if (!currentPassword || !newPassword || newPassword.length < 8) {
       return res.status(400).json({
         success: false,
-        message: "Invalid password",
+        message: "Password length is small",
       });
     }
 

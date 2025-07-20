@@ -6,7 +6,7 @@ import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const url = "https://task-manager-backend-srzi.onrender.com"
+  const url = "https://task-manager-backend-srzi.onrender.com";
 
   const {
     register,
@@ -16,10 +16,7 @@ const SignUp = () => {
 
   const handleSignUp = async (data) => {
     try {
-      const response = await axios.post(
-        url+"/api/user/signUp",
-        data
-      ); // register user
+      const response = await axios.post(url + "/api/user/signUp", data); // register user
       // toast.success("signUp successfull !"); // pop up displaying user signed in successfully
       localStorage.setItem("token", response.data.token); // set token to local storage as authentication
       localStorage.setItem("name", response.data.user.name); // set name in local
@@ -32,7 +29,7 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-2 bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-sm">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
           Sign Up
@@ -96,6 +93,10 @@ const SignUp = () => {
               placeholder="••••••••"
               {...register("password", {
                 required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters",
+                },
               })}
               className={`w-full px-4 py-2 rounded-lg border ${
                 errors.password ? "border-red-500" : "border-gray-300"

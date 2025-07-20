@@ -93,7 +93,7 @@ const Dashboard = () => {
       : "0.00";
 
   return (
-    <div className="flex min-h-screen bg-gray-200">
+    <div className="flex min-h-screen bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
       {/* Fixed Sidebar */}
       <div>
         <SideBar />
@@ -158,7 +158,7 @@ const Dashboard = () => {
         </div>
 
         {/* Tasks layout*/}
-        <div className="lg:p-6 md:p-6 p-2 bg-gray-200">
+        <div className="lg:p-6 md:p-6 p-2 bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
           <Outlet />
         </div>
       </div>

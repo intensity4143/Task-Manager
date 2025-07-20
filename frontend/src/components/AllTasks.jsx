@@ -32,7 +32,7 @@ const AllTasks = () => {
   if (error) return <div className="p-4 text-red-600">{error}</div>;
 
   return (
-    <div className="lg:p-8 md:p-6 p-3 mx-auto rounded-lg bg-white">
+    <div className="lg:p-8 md:p-6 p-3 mx-auto rounded-lg bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
       <h1 className="text-2xl text-red-600 mb-4">Your Tasks</h1>
 
       {tasks.length === 0 ? (
@@ -44,7 +44,7 @@ const AllTasks = () => {
           {tasks.map((task) => (
             <li
               key={task._id}
-              className="p-4 rounded shadow-md shadow-slate-700 border border-slate-600"
+              className="p-4 rounded shadow-md shadow-slate-700 border border-slate-600 bg-white"
             >
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-semibold">{task.title}</h2>

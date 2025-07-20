@@ -4,27 +4,24 @@ import { NavLink, useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { taskContext } from "../App";
+import { Mail, Lock  } from "lucide-react";
 
 function Login(props) {
   const navigate = useNavigate();
   // server url
-  const url = "https://task-manager-backend-srzi.onrender.com"
+  const url = "https://task-manager-backend-srzi.onrender.com";
 
   const handleLogin = async (data) => {
     try {
-      const response = await axios.post(
-        url+"/api/user/login",
-        data
-      ); 
+      const response = await axios.post(url + "/api/user/login", data);
       // send user login credentials to server
-      
+
       localStorage.setItem("token", response.data.token); // set token in local storage for authorization
       // toast.success("Login successfull !"); // pop up
       console.log(response.data);
       navigate("/layout/allTasks"); // navigate to Home or Dashboard
-    } 
-    catch (error) {
-      toast.error("Error while Login !");
+    } catch (error) {
+      toast.error(error.response.data.message);
       console.log(error.response.data || error.message);
     }
   };
@@ -36,7 +33,7 @@ function Login(props) {
   } = useForm();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-2 bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-sm">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
           Login
@@ -47,20 +44,25 @@ function Login(props) {
             <label className="block mb-1 font-semibold text-gray-700">
               Email
             </label>
-            <input
-              type="email"
-              placeholder="you@example.com"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Enter a valid email address",
-                },
-              })}
-              className={`w-full px-4 py-2 rounded-lg border ${
-                errors.email ? "border-red-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            />
+
+            <div className="relative flex items-center">
+              <Mail className="absolute left-3 text-gray-500" />
+              <input
+                type="email"
+                placeholder="you@example.com"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Enter a valid email address",
+                  },
+                })}
+                className={`w-full pl-10 pr-4 py-2 rounded-lg border ${
+                  errors.email ? "border-red-500" : "border-gray-300"
+                } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+              />
+            </div>
+
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.email.message}
@@ -73,13 +75,15 @@ function Login(props) {
             <label className="block mb-1 font-semibold text-gray-700">
               Password
             </label>
-            <input
+             <div className="relative flex items-center">
+              <Lock className="absolute left-3 text-gray-500" />
+              <input
               type="password"
               placeholder="••••••••"
               {...register("password", {
                 required: "Password is required",
               })}
-              className={`w-full px-4 py-2 rounded-lg border ${
+              className={`w-full pl-10 py-2 rounded-lg border ${
                 errors.password ? "border-red-500" : "border-gray-300"
               } focus:outline-none focus:ring-2 focus:ring-blue-500`}
             />
@@ -88,6 +92,7 @@ function Login(props) {
                 {errors.password.message}
               </p>
             )}
+            </div>
           </div>
 
           {/* Submit Button */}
