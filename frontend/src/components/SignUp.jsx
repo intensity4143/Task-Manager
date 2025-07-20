@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { ContactRound, Mail, Lock } from "lucide-react";
+import { ContactRound, Mail, Lock, UserPlus } from "lucide-react";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -31,9 +31,9 @@ const SignUp = () => {
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-2 bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)] ">
-      <div className="bg-white py-8 px-4 rounded-2xl shadow-md w-full max-w-sm">
+      <div className="bg-white py-8 px-4 lg:px-8 md:px-8 rounded-2xl shadow-md w-full max-w-sm">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
-          Sign Up
+          <UserPlus className="inline-block" strokeWidth={3} size={30}/>{" "} Sign Up
         </h1>
         <form
           onSubmit={handleSubmit(handleSignUp)}
