@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { ContactRound, Mail, Lock } from "lucide-react";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-2 bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-2 bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)] ">
       <div className="bg-white p-8 rounded-2xl shadow-md w-full max-w-sm">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
           Sign Up
@@ -42,40 +43,53 @@ const SignUp = () => {
           {/* Name */}
           <div>
             <label className="block mb-1 font-semibold text-gray-700">
-              Name :
+              Name:
             </label>
-            <input
-              type="text"
-              {...register("name", {
-                required: "Name is required",
-              })}
-              className={`w-full px-4 py-2 rounded-lg border ${
-                errors.name ? "border-red-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            />
+
+            <div className="relative flex items-center">
+              <ContactRound className="absolute left-3 text-gray-500" />
+
+              <input
+                type="text"
+                placeholder="Your name"
+                {...register("name", {
+                  required: "Name is required",
+                })}
+                className={`w-full pl-10 pr-4 py-2 rounded-lg border ${
+                  errors.name ? "border-red-500" : "border-gray-300"
+                } focus:outline-none focus:ring-2 focus:ring-blue-500 ml-2`}
+              />
+            </div>
+
             {errors.name && (
               <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
             )}
           </div>
+
           {/* Email Field */}
           <div>
             <label className="block mb-1 font-semibold text-gray-700">
               Email
             </label>
-            <input
-              type="email"
-              placeholder="you@example.com"
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Enter a valid email address",
-                },
-              })}
-              className={`w-full px-4 py-2 rounded-lg border ${
-                errors.email ? "border-red-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            />
+
+            <div className="relative flex items-center">
+              <Mail className="absolute left-3 text-gray-500" />
+              <input
+                type="email"
+                placeholder="you@example.com"
+                {...register("email", {
+                  required: "Email is required",
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: "Enter a valid email address",
+                  },
+                })}
+                className={`w-full pl-10 pr-4 py-2 rounded-lg border ${
+                  errors.email ? "border-red-500" : "border-gray-300"
+                } focus:outline-none focus:ring-2 focus:ring-blue-500 ml-2`}
+              />
+            </div>
+
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.email.message}
@@ -88,26 +102,33 @@ const SignUp = () => {
             <label className="block mb-1 font-semibold text-gray-700">
               Password
             </label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
-              className={`w-full px-4 py-2 rounded-lg border ${
-                errors.password ? "border-red-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            />
+
+            <div className="relative flex items-center">
+              <Lock className="absolute left-3 text-gray-500" />
+
+              <input
+                type="password"
+                placeholder="••••••••"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                className={`w-full pl-10 pr-4 py-2 rounded-lg border ${
+                  errors.password ? "border-red-500" : "border-gray-300"
+                } focus:outline-none focus:ring-2 focus:ring-blue-500 ml-2`}
+              />
+            </div>
+
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.password.message}
               </p>
             )}
           </div>
+
 
           {/* Submit Button */}
           <input

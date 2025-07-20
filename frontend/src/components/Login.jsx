@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { taskContext } from "../App";
-import { Mail, Lock  } from "lucide-react";
+import { Mail, Lock } from "lucide-react";
 
 function Login(props) {
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ function Login(props) {
                 })}
                 className={`w-full pl-10 pr-4 py-2 rounded-lg border ${
                   errors.email ? "border-red-500" : "border-gray-300"
-                } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                } focus:outline-none focus:ring-2 focus:ring-blue-500 ml-2`}
               />
             </div>
 
@@ -75,24 +75,31 @@ function Login(props) {
             <label className="block mb-1 font-semibold text-gray-700">
               Password
             </label>
-             <div className="relative flex items-center">
+
+            <div className="relative flex items-center">
               <Lock className="absolute left-3 text-gray-500" />
+
               <input
-              type="password"
-              placeholder="••••••••"
-              {...register("password", {
-                required: "Password is required",
-              })}
-              className={`w-full pl-10 py-2 rounded-lg border ${
-                errors.password ? "border-red-500" : "border-gray-300"
-              } focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            />
+                type="password"
+                placeholder="••••••••"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters long",
+                  },
+                })}
+                className={`w-full pl-10 pr-4 py-2 rounded-lg border ${
+                  errors.password ? "border-red-500" : "border-gray-300"
+                } focus:outline-none focus:ring-2 focus:ring-blue-500 ml-2`}
+              />
+            </div>
+
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.password.message}
               </p>
             )}
-            </div>
           </div>
 
           {/* Submit Button */}

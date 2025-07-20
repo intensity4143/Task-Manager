@@ -111,7 +111,7 @@ const Dashboard = () => {
             {/* Modal */}
             <Dialog.Root open={open} onOpenChange={setOpen}>
               <Dialog.Trigger asChild>
-                <button className="bg-green-800 text-white text-lg px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-green-700 transition">
+                <button className="bg-green-800 text-white lg:text-lg md:text-lg px-4 py-2 rounded-xl flex items-center gap-2 hover:bg-green-700 transition">
                   Add New Task <Plus size={25} />
                 </button>
               </Dialog.Trigger>
