@@ -36,7 +36,9 @@ const DeleteTask = () => {
         }
       );
 
-      toast.success("task Deleted Successfully!");
+      toast.success("task Deleted!" ,{
+        autoClose:1000,
+      });
 
       //  updating all tasks, completeTasks, pendingTasks
       setTasks((prev) => prev.filter((t) => t._id !== taskId));

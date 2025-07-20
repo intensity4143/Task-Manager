@@ -20,7 +20,7 @@ const SignUp = () => {
         url+"/api/user/signUp",
         data
       ); // register user
-      toast.success("signUp successfull !"); // pop up displaying user signed in successfully
+      // toast.success("signUp successfull !"); // pop up displaying user signed in successfully
       localStorage.setItem("token", response.data.token); // set token to local storage as authentication
       localStorage.setItem("name", response.data.user.name); // set name in local
       localStorage.setItem("email", response.data.user.email); // set email in local storage

@@ -13,7 +13,7 @@ const EditTask = ({ setOpen, taskToEdit }) => {
   const [dueDate, setDueDate] = useState("");
   const [completed, setCompleted] = useState(false);
   //server url
-  const url = "https://task-manager-backend-srzi.onrender.com"
+  const url = "https://task-manager-backend-srzi.onrender.com";
 
   // Prevent rendering if taskToEdit is not ready
   if (!taskToEdit) return null;
@@ -77,9 +77,13 @@ const EditTask = ({ setOpen, taskToEdit }) => {
         return !updatedTask.completed ? [...filtered, updatedTask] : filtered;
       });
 
-      toast.success("Task edited successfully!");
+      toast.success("task Upated!", {
+        autoClose: 1000,
+      });
     } catch (error) {
-      toast.error("Failed to edit task");
+      toast.error("Failed to edit task", {
+        autoClose: 1000,
+      });
       console.error(error.response?.data?.message || error.message);
     }
   };

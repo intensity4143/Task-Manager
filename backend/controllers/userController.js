@@ -179,7 +179,7 @@ exports.updateProfile = async (req, res) => {
       });
     }
 
-    const emailExist = await User.findOne({ email, id: { $ne: req.user.id } });
+    const emailExist = await User.findOne({ email, _id: { $ne: req.user.id } });
 
     // if email already in use by another account
     if (emailExist) {

@@ -12,13 +12,15 @@ const AddTask = ({ setOpen }) => {
   const [priority, setPriority] = useState("Low");
   const [dueDate, setDueDate] = useState("");
   const [completed, setCompleted] = useState(false);
-  const url = "https://task-manager-backend-srzi.onrender.com"   // serber url
+  const url = "https://task-manager-backend-srzi.onrender.com"; // serber url
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!title || !description) {
-      toast.error("Please fill all fields");
+      toast.error("Please fill all fields", {
+        autoClose: 1000,
+      });
       return;
     }
 
@@ -31,7 +33,7 @@ const AddTask = ({ setOpen }) => {
 
     try {
       const response = await axios.post(
-        url+"/api/tasks",
+        url + "/api/tasks",
         {
           title,
           description,
@@ -58,7 +60,9 @@ const AddTask = ({ setOpen }) => {
         setCompletedTasks((prevTasks) => [...prevTasks, newTask]);
       else setPendingTasks((prevTasks) => [...prevTasks, newTask]);
 
-      toast.success("Task Added Successfully!");
+      toast.success("Task Added!", {
+        autoClose: 1000,
+      });
       console.log(response.data);
 
       // reset values
@@ -68,7 +72,9 @@ const AddTask = ({ setOpen }) => {
       setDueDate("");
       setCompleted(false);
     } catch (error) {
-      toast.error("Failed to add task");
+      toast.error("Failed to add task", {
+        autoClose: 1000,
+      });
       console.error(error.response?.message || error.message);
     }
   };

@@ -19,7 +19,7 @@ function Login(props) {
       // send user login credentials to server
       
       localStorage.setItem("token", response.data.token); // set token in local storage for authorization
-      toast.success("Login successfull !"); // pop up
+      // toast.success("Login successfull !"); // pop up
       console.log(response.data);
       navigate("/layout/allTasks"); // navigate to Home or Dashboard
     } 
