@@ -336,7 +336,7 @@ exports.imageUpload = async (req, res) => {
 // remove image
 exports.removeImage = async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("imageUrl");
+    const user = await User.findById(req.user.id).select("imageUrl ,public_id");
 
     // if user not found
     if (!user) {
@@ -346,8 +346,15 @@ exports.removeImage = async (req, res) => {
       });
     }
 
+    // If user already has an image, delete it from Cloudinary
+    if (user.public_id) {
+      const cloudinary = require("cloudinary").v2;
+      await cloudinary.uploader.destroy(user.public_id);
+    }
+
     // set image url as empty String
     user.imageUrl = "";
+    user.public_id = "";
 
     await user.save();
     res.json({
