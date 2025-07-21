@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {signUp, login, getCurrentUser, updateProfile, updatePassword, imageUpload} = require("../controllers/userController");
+const {signUp, login, getCurrentUser, updateProfile, updatePassword, imageUpload, removeImage} = require("../controllers/userController");
 const { authMiddleWare } = require("../middleware/auth");
 
 // PUBLIC LINK

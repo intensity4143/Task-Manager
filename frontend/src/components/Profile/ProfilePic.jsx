@@ -64,7 +64,6 @@ const ProfilePic = () => {
 
   const handleCancel = () => {
     setTempImage(null);
-    setOpenImage(false);
   };
 
 //   for removing profile picture
