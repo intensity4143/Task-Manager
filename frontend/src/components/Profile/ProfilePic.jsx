@@ -139,7 +139,7 @@ const ProfilePic = () => {
               <img
                 src={tempImage || (image !== "" ? image : userImg)}
                 alt="Preview"
-                className="w-xs h-xs object-cover rounded-full border-2 border-gray-300"
+                className="w-65 h-65 object-cover rounded-full border-2 border-gray-300"
               />
             </div>
 
