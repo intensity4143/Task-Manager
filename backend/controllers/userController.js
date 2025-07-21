@@ -293,12 +293,7 @@ exports.imageUpload = async (req, res) => {
       });
     }
 
-    // file format supported hai to
-    // upload to cloudinary
-    const response = await uploadFileToCloudinary(file, "taskManager");
-    console.log(response);
-
-    const user = await User.findById(req.user.id).select("imageUrl");
+    const user = await User.findById(req.user.id).select("imageUrl public_id");
 
     // if user not found
     if (!user) {
@@ -308,16 +303,27 @@ exports.imageUpload = async (req, res) => {
       });
     }
 
-    user.imageUrl = response.secure_url, 
+    // file format supported hai to
+    // upload to cloudinary, new image
+    const response = await uploadFileToCloudinary(file, "taskManager");
+    console.log(response);
+
+    // If user already has an image, delete it from Cloudinary
+    if (user.public_id) {
+      const cloudinary = require("cloudinary").v2;
+      await cloudinary.uploader.destroy(user.public_id);
+    }
+
+    // Save new image info
+    user.public_id = response.public_id;
+    user.imageUrl = response.secure_url;
 
     await user.save();
     res.json({
       success: true,
-      imageUrl: response.secure_url, 
+      imageUrl: response.secure_url,
       message: "profile picture changed successfully !",
     });
-    
-    
   } catch (error) {
     console.error(error.message);
     return res.status(400).json({
@@ -330,8 +336,8 @@ exports.imageUpload = async (req, res) => {
 // remove image
 exports.removeImage = async (req, res) => {
   try {
-    const user  = await User.findById(req.user.id).select("imageUrl")
-    
+    const user = await User.findById(req.user.id).select("imageUrl");
+
     // if user not found
     if (!user) {
       return res.status(400).json({
@@ -339,22 +345,21 @@ exports.removeImage = async (req, res) => {
         message: "User not found !",
       });
     }
-    
+
     // set image url as empty String
     user.imageUrl = "";
-    
+
     await user.save();
     res.json({
       success: true,
       imageUrl: "",
       message: "profile picture changed successfully !",
     });
-  } 
-   catch (error) {
+  } catch (error) {
     console.error(error.message);
     return res.status(400).json({
       success: false,
       message: "something went wrong",
     });
   }
-}
+};

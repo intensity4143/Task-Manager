@@ -3,7 +3,7 @@ import { taskContext } from "../../App";
 import { X } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import userImg from "../../assets/userImg.png"
+import userImg from "../../assets/userImg.png";
 
 const ProfilePic = () => {
   const { image, setImage, openImage, setOpenImage } = useContext(taskContext);
@@ -25,11 +25,10 @@ const ProfilePic = () => {
       const imageUrl = URL.createObjectURL(file);
       setTempImage(imageUrl); // preview only
     }
-  }, [file])
-  
+  }, [file]);
 
   const handleApply = async () => {
-     setLoading(true);
+    setLoading(true);
     const token = localStorage.getItem("token");
 
     if (!file) {
@@ -70,20 +69,33 @@ const ProfilePic = () => {
   const handleClose = () => {
     setTempImage(null);
     setOpenImage(false);
-  }
+  };
 
-//   for removing profile picture
-  const handleRemove = async() => {
+  //   for removing profile picture
+  const handleRemove = async () => {
     const token = localStorage.getItem("token");
-    if(!token){
-        toast.error("please log in to remove profile pic",{
-            autoClose:1500
-        })
-        return;
+    if (!token) {
+      toast.error("please log in to remove profile pic", {
+        autoClose: 1500,
+      });
+      return;
     }
 
+    if (image === "") {
+      toast.error("no profile picture to remove", {
+        autoClose: 1000,
+      });
+      return;
+    }
+
+    // confirming if user want to remove profile picture
+    const confirm = window.confirm(
+      "Are you sure you want to remove your profile picture?"
+    );
+    if (!confirm) return;
+
     try {
-        const response = await axios.put(
+      const response = await axios.put(
         url + "/api/user/removeImage",
         {},
         {
@@ -92,16 +104,16 @@ const ProfilePic = () => {
           },
         }
       );
-      setImage("")
+      setImage("");
       setTempImage(null);
       setOpenImage(false);
-      toast.success("profile picture removed",{
-        autoClose:1000
-      })
+      toast.success("profile picture removed", {
+        autoClose: 1000,
+      });
     } catch (error) {
-        toast.error("error while removing Image",{
-            autoClose:1500
-        })
+      toast.error("error while removing Image", {
+        autoClose: 1500,
+      });
     }
   };
 
@@ -120,7 +132,9 @@ const ProfilePic = () => {
 
             <div className="flex flex-col items-center text-center">
               <p className="text-lg font-semibold text-white mb-4">
-                {tempImage ? "Preview New Profile Image" : "Current Profile Image"}
+                {tempImage
+                  ? "Preview New Profile Image"
+                  : "Current Profile Image"}
               </p>
               <img
                 src={tempImage || (image !== "" ? image : userImg)}
@@ -150,9 +164,9 @@ const ProfilePic = () => {
                 <button
                   className="bg-blue-600 text-white px-4 py-2 rounded w-full lg:w-[48%]"
                   onClick={handleApply}
-                  disabled = {loading}
+                  disabled={loading}
                 >
-                  { loading? "Applying..":"Apply changes"}
+                  {loading ? "Applying.." : "Apply changes"}
                 </button>
                 <button
                   className="bg-gray-500 text-white px-4 py-2 rounded w-full lg:w-[48%]"
