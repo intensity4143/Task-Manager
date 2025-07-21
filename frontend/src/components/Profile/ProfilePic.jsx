@@ -3,6 +3,7 @@ import { taskContext } from "../../App";
 import { X } from "lucide-react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import userImg from "../../assets/userImg.png"
 
 const ProfilePic = () => {
   const { image, setImage, openImage, setOpenImage } = useContext(taskContext);
@@ -66,8 +67,21 @@ const ProfilePic = () => {
     setTempImage(null);
   };
 
+  const handleClose = () => {
+    setTempImage(null);
+    setOpenImage(false);
+  }
+
 //   for removing profile picture
   const handleRemove = async() => {
+    const token = localStorage.getItem("token");
+    if(!token){
+        toast.error("please log in to remove profile pic",{
+            autoClose:1500
+        })
+        return;
+    }
+
     try {
         const response = await axios.put(
         url + "/api/user/removeImage",
@@ -78,6 +92,7 @@ const ProfilePic = () => {
           },
         }
       );
+      setImage("")
       setTempImage(null);
       setOpenImage(false);
       toast.success("profile picture removed",{
@@ -97,7 +112,7 @@ const ProfilePic = () => {
           <div className="relative backdrop-blur-md p-6 shadow-lg max-w-md w-[90%] rounded-xl bg-white/20">
             {/* Close Button */}
             <button
-              onClick={handleCancel}
+              onClick={handleClose}
               className="absolute top-3 right-3 text-white hover:text-black"
             >
               <X size={30} />
@@ -108,9 +123,9 @@ const ProfilePic = () => {
                 {tempImage ? "Preview New Profile Image" : "Current Profile Image"}
               </p>
               <img
-                src={tempImage || image}
+                src={tempImage || (image !== "" ? image : userImg)}
                 alt="Preview"
-                className="w-48 h-48 object-cover rounded-full border-2 border-gray-300"
+                className="w-xs h-xs object-cover rounded-full border-2 border-gray-300"
               />
             </div>
 
