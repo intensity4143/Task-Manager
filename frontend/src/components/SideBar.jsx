@@ -10,10 +10,11 @@ import {
 import { useContext } from "react";
 import { taskContext } from "../App";
 import userImg from "../assets/userImg.png";
+import ProfilePic from "./Profile/ProfilePic";
 
 const SideBar = () => {
   // using Context to get user details to show on sidebar such as name, image
-  const { userName, userEmail, image } = useContext(taskContext);
+  const { userName, image, setOpenImage } = useContext(taskContext);
 
   const [hamburger, setHamburger] = useState(false);
 
@@ -40,11 +41,14 @@ const SideBar = () => {
         lg:translate-x-0 lg:flex`}
       >
         <div className="flex flex-col items-center">
-          <div className=" p-1 rounded-full border-4 w-40 h-40">
+          <div className=" p-1 rounded-full border-4 w-40 h-40" 
+          
+          >
             <img
               src={image === "" ? userImg : image}
               alt="userImage"
-              className="rounded-full object-cover h-[100%] border-1 w-[100%]"
+              className="rounded-full object-cover h-[100%] border w-[100%]"
+              onClick={()=>setOpenImage(true)}
             />
           </div>
           <h1 className="text-2xl font-bold text-gray-700 mb-4 mt-0.5">
@@ -96,6 +100,7 @@ const SideBar = () => {
         </NavLink>
         </div>
       </div>
+      <ProfilePic/>
     </>
   );
 };

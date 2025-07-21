@@ -13,5 +13,6 @@ router.get('/myDetails',authMiddleWare,  getCurrentUser);
 router.put('/updateProfile', authMiddleWare,  updateProfile);
 router.put('/updatePassword', authMiddleWare, updatePassword);
 router.put('/imageUpload', authMiddleWare, imageUpload);
+router.put('/removeImage', authMiddleWare, removeImage);
 
 module.exports = router

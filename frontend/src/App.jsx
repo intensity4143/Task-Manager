@@ -28,6 +28,7 @@ function App() {
   const [userName, setUserName] = useState("user");
   const [userEmail, setUserEmail] = useState("user@gmail.com");
   const [image, setImage] = useState(null);
+  const [openImage, setOpenImage] = useState(false);
 
 
   return (
@@ -57,6 +58,8 @@ function App() {
         setUserEmail,
         image,
         setImage,
+        openImage,
+        setOpenImage
       }}
     >
 

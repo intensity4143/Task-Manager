@@ -271,7 +271,6 @@ async function uploadFileToCloudinary(file, folder) {
 // image upload handler
 exports.imageUpload = async (req, res) => {
   try {
-
     // image fetching
     const file = req.files.imageFile;
     console.log(file);
@@ -317,7 +316,7 @@ exports.imageUpload = async (req, res) => {
       imageUrl: response.secure_url, 
       message: "profile picture changed successfully !",
     });
-
+    
     
   } catch (error) {
     console.error(error.message);
@@ -327,3 +326,35 @@ exports.imageUpload = async (req, res) => {
     });
   }
 };
+
+// remove image
+exports.removeImage = async (req, res) => {
+  try {
+    const user  = await User.findById(req.user.id).select("imageUrl")
+    
+    // if user not found
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "User not found !",
+      });
+    }
+    
+    // set image url as empty String
+    user.imageUrl = "";
+    
+    await user.save();
+    res.json({
+      success: true,
+      imageUrl: "",
+      message: "profile picture changed successfully !",
+    });
+  } 
+   catch (error) {
+    console.error(error.message);
+    return res.status(400).json({
+      success: false,
+      message: "something went wrong",
+    });
+  }
+}
