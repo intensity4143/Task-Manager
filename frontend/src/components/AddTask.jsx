@@ -12,22 +12,25 @@ const AddTask = ({ setOpen }) => {
   const [priority, setPriority] = useState("Low");
   const [dueDate, setDueDate] = useState("");
   const [completed, setCompleted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const url = "https://task-manager-backend-srzi.onrender.com"; // serber url
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true)
 
     if (!title || !description) {
       toast.error("Please fill all fields", {
         autoClose: 1000,
       });
+      setSubmitting(false)
       return;
     }
 
     const token = localStorage.getItem("token");
     if (!token) {
       setError("token missing! Please log in.");
-      setLoading(false);
+      setSubmitting(false)
       return;
     }
 
@@ -49,6 +52,7 @@ const AddTask = ({ setOpen }) => {
       );
 
       setOpen(false); // closing add Task box
+      setSubmitting(false)
 
       const newTask = response.data.task; // newly created task
 
@@ -58,12 +62,12 @@ const AddTask = ({ setOpen }) => {
       // add new task to completed or pending
       if (newTask.completed)
         setCompletedTasks((prevTasks) => [...prevTasks, newTask]);
-      else setPendingTasks((prevTasks) => [...prevTasks, newTask]);
+      else 
+        setPendingTasks((prevTasks) => [...prevTasks, newTask]);
 
       toast.success("Task Added!", {
         autoClose: 1000,
       });
-      console.log(response.data);
 
       // reset values
       setTitle("");
@@ -163,6 +167,7 @@ const AddTask = ({ setOpen }) => {
       <button
         type="submit"
         className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg text-sm transition duration-200"
+        disabled = {submitting}
       >
         Add Task
       </button>

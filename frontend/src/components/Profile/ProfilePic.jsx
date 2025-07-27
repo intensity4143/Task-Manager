@@ -56,7 +56,9 @@ const ProfilePic = () => {
       setImage(response.data.imageUrl);
       setTempImage(null);
       setOpenImage(false);
-      toast.success("Profile picture updated!");
+      toast.success("Profile picture updated!" ,{
+        autoClose:1000
+      });
     } catch (error) {
       toast.error(error?.response?.data?.message || error.message);
     }

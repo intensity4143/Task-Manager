@@ -22,8 +22,10 @@ const SignUp = () => {
       localStorage.setItem("token", response.data.token); // set token to local storage as authentication
       localStorage.setItem("name", response.data.user.name); // set name in local
       localStorage.setItem("email", response.data.user.email); // set email in local storage
-      console.log("user data:- ", response.data);
-      navigate("/layout");
+      localStorage.setItem("theme", ""); // setting theme as light mode initially
+
+      navigate("/layout");  //Dashboard page
+
     } catch (error) {
       toast.error(error.response.data.message);
       console.log(error.response.data || error.message);

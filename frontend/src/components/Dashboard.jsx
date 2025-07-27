@@ -21,24 +21,22 @@ const Dashboard = () => {
     setUserName,
     setUserEmail,
     setImage,
+    theme,
   } = useContext(taskContext);
 
   const [open, setOpen] = useState(false);
-  const url = "https://task-manager-backend-srzi.onrender.com"
+  const url = "https://task-manager-backend-srzi.onrender.com";
 
-  // get user details on every refresh 
+  // get user details on every refresh
   useEffect(() => {
     const getUserDetails = async () => {
       try {
         const token = localStorage.getItem("token"); // extract token from local storage
-        const response = await axios.get(
-          url+"/api/user/myDetails",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(url + "/api/user/myDetails", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         if (response.data.success) {
           setUserName(response.data.user.name); // set name
           setUserEmail(response.data.user.email); // set email
@@ -53,8 +51,7 @@ const Dashboard = () => {
     getUserDetails();
   }, []);
 
-
-  //  get all task on every refresh 
+  //  get all task on every refresh
   useEffect(() => {
     const fetchTasks = async () => {
       const token = localStorage.getItem("token");
@@ -65,7 +62,7 @@ const Dashboard = () => {
       }
 
       try {
-        const response = await axios.get(url+"/api/tasks", {
+        const response = await axios.get(url + "/api/tasks", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -93,7 +90,13 @@ const Dashboard = () => {
       : "0.00";
 
   return (
-    <div className="flex min-h-screen bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
+    <div
+      className={`flex min-h-screen ${
+        theme === "dark"
+          ? "bg-slate-800"
+          : "bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]"
+      }`}
+    >
       {/* Fixed Sidebar */}
       <div>
         <SideBar />
@@ -104,7 +107,7 @@ const Dashboard = () => {
         <div className="p-6">
           {/* Header */}
           <div className="flex justify-between items-center mb-5">
-            <h2 className="text-xl font-semibold text-gray-800">
+            <h2 className="text-xl font-semibold text-gray-800 dark:text-white">
               Task Overview
             </h2>
 
@@ -158,7 +161,13 @@ const Dashboard = () => {
         </div>
 
         {/* Tasks layout*/}
-        <div className="lg:p-6 md:p-6 p-2 bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
+        <div
+          className={`lg:p-6 md:p-6 p-2 ${
+            theme === "dark"
+              ? "bg-slate-800"
+              : "bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]"
+          }`}
+        >
           <Outlet />
         </div>
       </div>
@@ -168,9 +177,11 @@ const Dashboard = () => {
 
 // Reusable Status Card component
 const StatCard = ({ title, value }) => (
-  <div className="bg-white lg:p-4 p-2.5 rounded-lg shadow-md shadow-slate-700 text-center ">
+  <div className="bg-white lg:p-4 p-2.5 rounded-lg shadow-md shadow-slate-700 text-center dark:bg-slate-100">
     <h3 className="text-md text-gray-600">{title}</h3>
-    <p className="lg:text-2xl md:text-2xl text-xl font-bold text-gray-800">{value}</p>
+    <p className="lg:text-2xl md:text-2xl text-xl font-bold text-gray-800">
+      {value}
+    </p>
   </div>
 );
 

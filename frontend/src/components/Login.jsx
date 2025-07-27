@@ -18,7 +18,7 @@ function Login(props) {
 
       localStorage.setItem("token", response.data.token); // set token in local storage for authorization
       // toast.success("Login successfull !"); // pop up
-      console.log(response.data);
+      localStorage.setItem("theme", ""); // setting theme as light mode initially
       navigate("/layout/allTasks"); // navigate to Home or Dashboard
     } catch (error) {
       toast.error(error.response.data.message);

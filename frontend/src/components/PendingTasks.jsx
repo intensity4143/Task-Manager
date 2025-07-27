@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { taskContext } from "../App";
-import { SquarePen, Trash2 } from "lucide-react";
+import { SquarePen, Trash2, ListFilter } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import EditTask from "./EditTask";
 import axios from "axios";
@@ -8,20 +8,34 @@ import { toast } from "react-toastify";
 import DeleteTask from "./DeleteTask";
 
 const PendingTasks = () => {
-
-  // using Context 
+  // using Context
   const {
-      error,
-      loading,
-      taskToEdit, 
-      setTaskToEdit,
-      open, 
-      setOpen,
-      pendingTasks,
-      setConfirmDelete,
-      setTaskToDelete
-    } = useContext(taskContext);
-    
+    error,
+    loading,
+    taskToEdit,
+    setTaskToEdit,
+    open,
+    setOpen,
+    pendingTasks,
+    setConfirmDelete,
+    setTaskToDelete,
+    theme,
+  } = useContext(taskContext);
+
+  const [filteredTask, setFilteredTask] = useState([]);
+  const [filter, setFilter] = useState("");
+
+  //  for filtering task based on user preference
+  useEffect(() => {
+    if (filter) {
+      const taskFiltered = pendingTasks.filter(
+        (task) => task.priority === filter
+      );
+      setFilteredTask(taskFiltered);
+    } else {
+      setFilteredTask(pendingTasks);
+    }
+  }, [filter, pendingTasks]);
 
   if (loading)
     return (
@@ -34,8 +48,34 @@ const PendingTasks = () => {
   if (error) return <div className="p-4 text-red-600">{error}</div>;
 
   return (
-    <div className="lg:p-8 md:p-6 p-3 mx-auto rounded-lg bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]">
-      <h1 className="text-2xl text-red-600 mb-4">Pending Tasks</h1>
+    <div
+      className={`lg:p-8 md:p-6 p-3 mx-auto rounded-lg ${
+        theme === "dark"
+          ? "bg-slate-700"
+          : "bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)]"
+      }`}
+    >
+      <div className="flex justify-between flex-wrap">
+        <h1 className="text-2xl text-red-600 mb-4 dark:text-red-100">
+          Pending Tasks
+        </h1>
+        <div className="mb-4 dark:text-black">
+          <label className="mr-2 font-medium">
+            <ListFilter className="inline-block dark:text-white" size={28}/>
+          </label>
+          <select
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className={`border px-2 py-1 rounded dark:bg-slate-600 dark:text-white`}
+          >
+            <option value="">All</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+      </div>
+
       {pendingTasks.length === 0 ? (
         <p className="text-center text-lg text-gray-500 italic mt-4">
           You have no pending Tasks yet.
@@ -43,13 +83,15 @@ const PendingTasks = () => {
       ) : (
         <ul className="space-y-4">
           {/* using map to show all pending task passed from APP.jsx as context API */}
-          {pendingTasks.map((task) => (
+          {filteredTask.map((task) => (
             <li
               key={task._id}
-              className="p-4 rounded shadow-md shadow-slate-700 border border-slate-600 bg-white"
+              className={`p-4 rounded shadow-md shadow-slate-700 border border-slate-600 bg-white dark:bg-gray-900`}
             >
               <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-semibold">{task.title}</h2>
+                <h2 className="text-2xl font-semibold dark:text-gray-100">
+                  {task.title}
+                </h2>
                 <span
                   className={`text-md px-2 py-1 rounded-full ${
                     task.completed
@@ -60,8 +102,10 @@ const PendingTasks = () => {
                   {task.completed ? "Completed" : "Pending"}
                 </span>
               </div>
-              <p className="text-gray-700 text-lg">{task.description}</p>
-              <div className="text-md mt-2">
+              <p className="text-gray-700 text-lg dark:text-gray-200">
+                {task.description}
+              </p>
+              <div className="text-md mt-2 dark:text-gray-300">
                 Priority:{" "}
                 <p
                   className={`${
@@ -69,17 +113,15 @@ const PendingTasks = () => {
                       ? "bg-red-400 text-white"
                       : task.priority === "Medium"
                       ? "bg-yellow-200 text-black"
-                      : "bg-green-400"
+                      : "bg-green-600"
                   } 
-              inline-block px-1 py-0.5 rounded-lg text-xs`}
+                         inline-block px-1.5 py-0.4 rounded-lg text-sm`}
                 >
                   {task.priority}
                 </p>
               </div>
-
-
               <div className="flex justify-between">
-                <p className="text-sm text-gray-500 ">
+                <p className="text-sm text-gray-500 dark:text-gray-400">
                   Created At: {new Date(task.createdAt).toLocaleString()}
                 </p>
 
@@ -92,10 +134,9 @@ const PendingTasks = () => {
                       setConfirmDelete(true);
                     }}
                   >
-                    <Trash2 size={22} />
+                    <Trash2 size={22} className="text-white" />
                   </button>
 
-                  {/* task edit button */}
                   <button
                     className="text-gray-600 text-sm px-4 py-2 rounded-xl flex items-center gap-2 hover:text-blue-700 transition"
                     onClick={() => {
@@ -103,7 +144,7 @@ const PendingTasks = () => {
                       setOpen(true);
                     }}
                   >
-                    <SquarePen size={22} />
+                    <SquarePen size={22} className="text-white" />
                   </button>
                 </div>
               </div>
@@ -139,8 +180,7 @@ const PendingTasks = () => {
       </Dialog.Root>
 
       {/* delete task component */}
-      <DeleteTask/>
-
+      <DeleteTask />
     </div>
   );
 };

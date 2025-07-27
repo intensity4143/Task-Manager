@@ -6,7 +6,7 @@ import {
   SunMoon,
   CircleUser,
   UserCog,
-  Plus, 
+  Plus,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
@@ -17,21 +17,14 @@ import { taskContext } from "../App";
 const Navbar = () => {
   const navigate = useNavigate();
   const menuref = useRef(null);
-  const [dark, setDark] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
   const [name, setName] = useState("user");
   const [email, setEmail] = useState("user@gmail.com");
 
-  const {userName, userEmail} =useContext(taskContext);
+  const { userName, userEmail } = useContext(taskContext);
 
   // handle menubar
   const handleMenuToggle = () => setMenuOpen((prev) => !prev);
-
-
-  // handle dark mode
-  const handleDarkMode = () => {
-    dark == "dark" ? setDark("") : setDark("dark");
-  };
 
   // closes menu when clicked anywhere
   useEffect(() => {
@@ -44,44 +37,38 @@ const Navbar = () => {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-    // handle logout
-  const handleLogout = ()=>{
-    toast.success("Logged Out!")
+  // handle logout
+  const handleLogout = () => {
+    toast.success("Logged Out!");
     setMenuOpen(false);
-    localStorage.removeItem("token")
-    navigate("/login", {replace:true});
-  }
+    localStorage.removeItem("token");
+    navigate("/login", { replace: true });
+  };
 
   useEffect(() => {
     try {
       setName(userName);
-      setEmail(userEmail)
-    
+      setEmail(userEmail);
     } catch (error) {
       setName("user");
-      setEmail("user@gamil.com")
+      setEmail("user@gamil.com");
     }
-  }, [])
-  
+  }, []);
 
   return (
-    <div className="text-white sticky top-0 w-[100%] z-30 bg-blue-800">
-      <nav className="flex justify-around lg:justify-between  bg-blue-800 py-2.5 w-[80%] m-auto ml-15 lg:m-auto md:m-auto md:justify-between">
+    <div className="text-white fixed top-0 w-[100%] z-30 bg-blue-800 dark:bg-blue-950">
+      <nav className="flex justify-around lg:justify-between  py-2.5 w-[80%] m-auto ml-15 lg:m-auto md:m-auto md:justify-between ">
         <div>
           <NavLink to="/layout/allTasks">
-            <Slack className="text-orange-600 inline-block" size={45}/> <span className="font-semibold text-2xl ml-0.5 italic">TaskManager</span>
+            <Slack className="text-orange-600 inline-block" size={45} />{" "}
+            <span className="font-semibold text-2xl ml-0.5 italic">
+              TaskManager
+            </span>
           </NavLink>
         </div>
 
         <div>
           <ul className="flex justify-center items-center flex-row space-x-5">
-            {/* dark mode button */}
-            {/* <li>
-              <button onClick={handleDarkMode}>
-                {dark == "dark" ? <MoonStar /> : <SunMoon />}
-              </button>
-            </li> */}
-
             {/* profile button */}
             <li
               ref={menuref}
