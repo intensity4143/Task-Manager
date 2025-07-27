@@ -30,10 +30,11 @@ const SignUp = () => {
     }
   };
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-2 bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)] ">
+    <div className="min-h-screen flex items-center justify-center flex-col px-2 bg-[linear-gradient(90deg,_rgba(240,240,240,1)_0%,_rgba(255,237,237,1)_100%)] ">
       <div className="bg-white py-8 px-4 lg:px-8 md:px-8 rounded-2xl shadow-md w-full max-w-sm">
         <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
-          <UserPlus className="inline-block" strokeWidth={3} size={30}/>{" "} Sign Up
+          <UserPlus className="inline-block" strokeWidth={3} size={30} /> Sign
+          Up
         </h1>
         <form
           onSubmit={handleSubmit(handleSignUp)}
@@ -129,7 +130,6 @@ const SignUp = () => {
             )}
           </div>
 
-
           {/* Submit Button */}
           <input
             type="submit"
@@ -139,22 +139,32 @@ const SignUp = () => {
           />
           {/* Sign Up */}
           {/* </input> */}
-          <h1 className="text-center text-lg text-gray-600 mt-1">
-            Already have an account?{" "}
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                `font-semibold underline transition-colors duration-200 ${
-                  isActive
-                    ? "text-red-500"
-                    : "text-blue-600 hover:text-blue-800"
-                }`
-              }
-            >
-              Login here
-            </NavLink>
-          </h1>
+          {!isSubmitting && (
+            <h1 className="text-center text-lg text-gray-600 mt-1">
+              Already have an account?{" "}
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  `font-semibold underline transition-colors duration-200 ${
+                    isActive
+                      ? "text-red-500"
+                      : "text-blue-600 hover:text-blue-800"
+                  }`
+                }
+              >
+                Login here
+              </NavLink>
+            </h1>
+          )}
         </form>
+        {isSubmitting &&(
+          <div className="flex flex-col items-center mt-4">
+            <div className="animate-spin h-6 w-6 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+            <p className="mt-2 text-md text-gray-500 animate-pulse text-center">
+            Hold on... we’re creating your dashboard
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
