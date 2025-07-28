@@ -67,4 +67,3 @@ Task deadlines and due reminders
 
 ✨ Author
 Made with ❤️ by Your Intensity
-GitHub • LinkedIn
