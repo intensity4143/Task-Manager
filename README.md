@@ -48,10 +48,8 @@ npm install
 # Install frontend dependencies
 cd ../client
 npm install
+
 ▶️ Run the App
-bash
-Copy
-Edit
 # Start backend
 cd server
 npm run dev
@@ -59,6 +57,7 @@ npm run dev
 # Start frontend
 cd ../client
 npm start
+
 🌐 Live Demo
 🔗 https://task-manager-rfo2.onrender.com
 
