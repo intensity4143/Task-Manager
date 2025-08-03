@@ -38,25 +38,25 @@ It helps you manage your tasks with features like priority filtering, night mode
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/task-manager.git
+git clone https://github.com/intensity4143/Task-Manager.git
 cd task-manager
 
 # Install backend dependencies
-cd server
+cd backend
 npm install
 
 # Install frontend dependencies
-cd ../client
+cd ../frontend
 npm install
 
 ▶️ Run the App
 # Start backend
-cd server
+cd backend
 npm run dev
 
 # Start frontend
-cd ../client
-npm start
+cd ../frontend
+npm run dev
 
 🌐 Live Demo
 🔗 https://task-manager-rfo2.onrender.com
