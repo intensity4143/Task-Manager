@@ -29,7 +29,7 @@ It helps you manage your tasks with features like priority filtering, night mode
 - **Frontend**: React, Tailwind CSS (optional)
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB (with Mongoose)
-- **Other**: Multer (for profile image upload), JWT (if using auth)
+- **Other**: Cloudinary (for profile image upload), JWT (auth)
 
 
 ## ⚙️ Setup Instructions
