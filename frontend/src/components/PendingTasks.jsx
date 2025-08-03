@@ -134,7 +134,7 @@ const PendingTasks = () => {
                       setConfirmDelete(true);
                     }}
                   >
-                    <Trash2 size={22} className="text-white" />
+                    <Trash2 size={22} className= "dark:text-white" />
                   </button>
 
                   <button
@@ -144,7 +144,7 @@ const PendingTasks = () => {
                       setOpen(true);
                     }}
                   >
-                    <SquarePen size={22} className="text-white" />
+                    <SquarePen size={22} className= "dark:text-white" />
                   </button>
                 </div>
               </div>
