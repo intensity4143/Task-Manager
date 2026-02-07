@@ -5,14 +5,14 @@
 ![MongoDB](https://img.shields.io/badge/Database-MongoDB-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
-Live link - https://task-manager-rfo2.onrender.com
-demo login credentials  
-gmail = test@gmail.com
-pass - 123456789
 
 A powerful and clean **Task Manager** web app built using the **MERN stack** (MongoDB, Express.js, React, Node.js). 
 It helps you manage your tasks with features like priority filtering, night mode, and user profile management.
 
+Live link - https://task-manager-rfo2.onrender.com
+demo login credentials  
+gmail = test@gmail.com
+pass - 123456789
 ---
 
 ## 🚀 Features
