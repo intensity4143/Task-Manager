@@ -10,6 +10,7 @@ A powerful and clean **Task Manager** web app built using the **MERN stack** (Mo
 It helps you manage your tasks with features like priority filtering, night mode, and user profile management.
 
 Live link - https://task-manager-rfo2.onrender.com
+---
 demo login credentials  
 gmail = test@gmail.com
 pass - 123456789
