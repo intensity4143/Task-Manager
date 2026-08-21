@@ -52,6 +52,14 @@ const taskRouter = require("./routes/taskRoutes");
 app.use('/api/user', userRoutes)
 app.use('/api/tasks', taskRouter)
 
+// health route
+app.get('/api/health', (req, res) => {
+    res.status(200).json({
+        status: 'OK',
+        message: 'Server is running'
+    });
+});
+
 app.get('/', (req, res)=>{
     res.send("API Working");
 })
